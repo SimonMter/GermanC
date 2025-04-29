@@ -90,11 +90,6 @@ int main(int argc, char* argv[]) {
 
     int compile_result = system(compile_cmd.c_str());
 
-    if(compile_result != 0){
-        std::cerr << "Fehler beim Kompelieren.\n";
-        return 1;
-    }
-
     int run_result = system("./out_program");
     if(run_result != 0){
         std::cerr << "Fehler beim Ausführen des Programms.\n";
