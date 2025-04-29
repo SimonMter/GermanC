@@ -38,7 +38,7 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"konstant", "const"},
     {"extern", "extern"},
     {"statisch", "static"},
-    {"zeichenfolge", "string"},
+    {"zeichenfolge", "char*"},
     {"einschließen", "#include"},
     {"definieren", "#define"},
     {"kommentare", "//"},
