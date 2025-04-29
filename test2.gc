@@ -1,0 +1,35 @@
+#!/usr/bin/env germanc
+
+einschließen <stdbool.h>
+
+ganzzahl fakultaet(ganzzahl n) {
+    ganzzahl ergebnis = 1;
+    während (n > 1) {
+        ergebnis = ergebnis * n;
+        n = n - 1;
+    }
+    zurück ergebnis;
+}
+ganzzahl haupt() {
+
+    für (fließkommazahl  i = 0; i < 8; i = i + 0.5) {
+        wenn (i kleiner_oder_gleich 4 oder i kleiner_oder_gleich 6) {
+            // code
+            zeichenfolge ergebnis = "i ist kleiner oder gleich 4 oder größer oder gleich 6";
+            drucke(ergebnis);
+            kommentare Das ist ein Kommentar hahaha
+
+        }sonst {
+            drucke("i ist größer als 4");
+        }
+    }
+
+
+
+    ganzzahl zahl = 15;
+    ganzzahl ergebnis = fakultaet(zahl);
+    
+    drucke("Die Fakultät von %d ist %d\n", zahl, ergebnis);
+
+    zurück 0;
+}
