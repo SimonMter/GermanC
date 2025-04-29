@@ -1,1 +1,2 @@
-.gc linguist-language=GermanC
+*.gc linguist-language=GermanC
+*.c linguist-language=IDC
