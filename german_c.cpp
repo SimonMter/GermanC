@@ -84,5 +84,17 @@ int main(int argc, char* argv[]) {
         outfile << tranlate_line(line) << "\n";
     }
     std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
+
+    std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+    std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
+
+    int compile_result = system(compile_cmd.c_str());
+    if(compile_result != 0){
+        std::cerr << "Fehler beim Kompilieren.\n";
+        return 1;
+    }
+
+    std::cout << "Komplettiert ohne Fehler.\n";
+
     return 0;
 }
