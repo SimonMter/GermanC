@@ -97,9 +97,12 @@ ganzzahl haupt() {
 
 📦 Optional: Package for Others
 
-You can compile germanc once and share the binary. No C++ or Java required on the user’s system!
+You can compile germanc once and share the binary. No C++ required on the user’s system afterwards!
 
-Have fun coding in Deutsch! 🇩🇪💻
+https://www.instagram.com/p/DGHY4zSqkhw/?igsh=bzk3cDh4MnNxOHY5
+now GermanC is real and it can hurt you :)
+
+
 
 
 ---
