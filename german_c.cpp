@@ -68,18 +68,6 @@ std::unordered_map<std::string, std::string> func_map = {
 
 
 
-std::string tranlate_line(const std::string& line){
-    std::string translated = line;
-    for(const auto& [german, cword] : keyword_map){
-        std::regex pattern("\\b" + german + "\\b");
-        translated = std::regex_replace(translated, pattern, cword);
-    }
-
-    translated = translate_function_calls(translated);
-    translated = translate_function_signature(translated);
-    translated = translate_arrays(translated);
-    return translated;
-}
 
 std::string translate_function_calls(const std::string& line) {
     std::string translated = line;
@@ -102,6 +90,20 @@ std::string translate_function_signature(const std::string& line) {
 std::string translate_arrays(const std::string& line) {
     std::regex array_pattern("\\b(ganzzahl|zeichen)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\[\\d+\\]");
     return std::regex_replace(line, array_pattern, "$1 $2[]");
+}
+
+
+std::string tranlate_line(const std::string& line){
+    std::string translated = line;
+    for(const auto& [german, cword] : keyword_map){
+        std::regex pattern("\\b" + german + "\\b");
+        translated = std::regex_replace(translated, pattern, cword);
+    }
+
+    translated = translate_function_calls(translated);
+    translated = translate_function_signature(translated);
+    translated = translate_arrays(translated);
+    return translated;
 }
 
 
