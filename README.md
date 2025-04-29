@@ -8,7 +8,7 @@ You write C code using German words, and this tool will translate it into regula
 ## 🚀 Features
 
 - Write C-like code using German keywords
-- Translates the gc code into C code which can be then run normally
+- Translates the gc code into C code which can be then run normally 
 
 ---
 
