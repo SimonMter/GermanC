@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.0.0"; // Change as needed
+const std::string GERMC_VERSION = "1.0.1";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
