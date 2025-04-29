@@ -56,7 +56,13 @@ int main(int argc, char* argv[]) {
     }
 
     std::string line;
+    bool is_shebang = true;
     while(std::getline(infile, line)){
+
+        if (is_shebang && line.find("#!") == 0) {
+            is_shebang = false;
+            continue;
+        }
         outfile << tranlate_line(line) << "\n";
     }
     std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
