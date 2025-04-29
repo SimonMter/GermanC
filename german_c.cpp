@@ -31,7 +31,26 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"kleiner_oder_gleich", "<="},
     {"und", "&&"},                 
     {"oder", "||"},                 
-    {"nicht", "!"}                  
+    {"nicht", "!"},
+    {"wahr", "true"},
+    {"falsch", "false"},
+    {"null", "NULL"},
+    {"konstant", "const"},
+    {"extern", "extern"},
+    {"statisch", "static"},
+    {"zeichenfolge", "string"},
+    {"einschließen", "#include"},
+    {"definieren", "#define"},
+    {"kommentare", "//"},
+    {"kommentare_block", "/* */"},
+    {"kommentare_block_ende", "*/"},
+    {"strukturen", "struct"},
+    {"union", "union"},
+    {"enum", "enum"},
+    {"typedef", "typedef"},
+    {"volatile", "volatile"},
+    {"register", "register"},
+    {"inline", "inline"},
 };
 
 std::unordered_map<std::string, std::string> function_map = {
