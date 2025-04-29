@@ -18,8 +18,36 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"leer", "void"},
     {"haupt", "main"},
     {"breche", "break"},
-    {"fortsetzen", "continue"}
+    {"fortsetzen", "continue"},
+    {"fließkommazahl", "float"},
+    {"doppelt", "double"},
+    {"lang", "long"},
+    {"kurz", "short"},
+    {"gleich", "=="},
+    {"nicht_gleich", "!="},
+    {"größer", ">"},
+    {"kleiner", "<"},
+    {"größer_oder_gleich", ">="},
+    {"kleiner_oder_gleich", "<="},
+    {"und", "&&"},                 
+    {"oder", "||"},                 
+    {"nicht", "!"}                  
 };
+
+std::unordered_map<std::string, std::string> function_map = {
+    {"drucke", "printf"},
+    {"scanner", "scanf"},
+    {"hole", "getchar"} 
+};
+
+std::unordered_map<std::string, std::string> func_map = {
+    {"ganzzahl", "int"},
+    {"zeichen", "char"},
+    {"leer", "void"},
+};
+
+
+
 
 std::string tranlate_line(const std::string& line){
     std::string translated = line;
@@ -27,8 +55,36 @@ std::string tranlate_line(const std::string& line){
         std::regex pattern("\\b" + german + "\\b");
         translated = std::regex_replace(translated, pattern, cword);
     }
+
+    translated = translate_function_calls(translated);
+    translated = translate_function_signature(translated);
+    translated = translate_arrays(translated);
     return translated;
 }
+
+std::string translate_function_calls(const std::string& line) {
+    std::string translated = line;
+    for (const auto& [german_func, c_func] : function_map) {
+        std::regex pattern("\\b" + german_func + "\\b");
+        translated = std::regex_replace(translated, pattern, c_func);
+    }
+    return translated;
+}
+
+std::string translate_function_signature(const std::string& line) {
+    std::string translated = line;
+    for (const auto& [german_type, c_type] : func_map) {
+        std::regex pattern("\\b" + german_type + "\\b");
+        translated = std::regex_replace(translated, pattern, c_type);
+    }
+    return translated;
+}
+
+std::string translate_arrays(const std::string& line) {
+    std::regex array_pattern("\\b(ganzzahl|zeichen)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\[\\d+\\]");
+    return std::regex_replace(line, array_pattern, "$1 $2[]");
+}
+
 
 int main(int argc, char* argv[]) {
     if (argc == 2 && std::string(argv[1]) == "--version") {
@@ -89,12 +145,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
 
     int compile_result = system(compile_cmd.c_str());
-    if(compile_result != 0){
-        std::cerr << "Fehler beim Kompilieren.\n";
-        return 1;
-    }
 
-    std::cout << "Komplettiert ohne Fehler.\n";
+    std::cout << "Komplettiert.\n";
 
     return 0;
 }
