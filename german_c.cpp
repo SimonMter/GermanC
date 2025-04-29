@@ -5,6 +5,8 @@
 #include <regex>
 #include <cstdlib>
 
+const std::string GERMC_VERSION = "1.0.0"; // Change as needed
+
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
     {"zeichen", "char"},
@@ -29,8 +31,23 @@ std::string tranlate_line(const std::string& line){
 }
 
 int main(int argc, char* argv[]) {
-    if(argc != 2){
-        std::cerr << "Benutzung: ./germanc <Datei.gc>\n";
+    if (argc == 2 && std::string(argv[1]) == "--version") {
+        std::cout << "germanc Version " << GERMC_VERSION << std::endl;
+        return 0;
+    }
+
+    if (std::string(argv[1]) == "--help") {
+        std::cout << "Benutzung: germanc <Datei.gc>\n"
+                  << "Optionen:\n"
+                  << "  --version      Zeigt die aktuelle Version\n"
+                  << "  --help         Zeigt diese Hilfe\n";
+        return 0;
+    }
+    
+
+    if (argc != 2) {
+        std::cerr << "Benutzung: germanc <Datei.gc>\n";
+        std::cerr << "Oder: germanc --version\n";
         return 1;
     }
 
@@ -57,6 +74,7 @@ int main(int argc, char* argv[]) {
 
     std::string line;
     bool is_shebang = true;
+    outfile << "#include <stdio.h>\n";
     while(std::getline(infile, line)){
 
         if (is_shebang && line.find("#!") == 0) {
@@ -68,6 +86,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
     std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+    std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
 
     int compile_result = system(compile_cmd.c_str());
 
@@ -77,7 +96,10 @@ int main(int argc, char* argv[]) {
     }
 
     int run_result = system("./out_program");
-
+    if(run_result != 0){
+        std::cerr << "Fehler beim Ausführen des Programms.\n";
+    }
+    
     std::remove("out_program");
 
     return 0;
