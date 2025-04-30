@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.0.2";
+const std::string GERMC_VERSION = "1.0.3";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -39,11 +39,12 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"extern", "extern"},
     {"statisch", "static"},
     {"zeichenfolge", "char*"},
-    {"einschließen", "#include"},
-    {"definieren", "#define"},
-    {"kommentare", "//"},
-    {"kommentare_block", "/* */"},
-    {"kommentare_block_ende", "*/"},
+    {"beinhalte", "include"},
+    {"definieren", "define"},
+    {"kommentar", "//"},
+    {"kommentar_block", "/* */"},
+    {"kommentar_block_anfang", "/*"},
+    {"kommentar_block_ende", "*/"},
     {"strukturen", "struct"},
     {"union", "union"},
     {"enum", "enum"},
@@ -54,7 +55,7 @@ std::unordered_map<std::string, std::string> keyword_map = {
 };
 
 std::unordered_map<std::string, std::string> function_map = {
-    {"drucke", "printf"},
+    {"schreibe", "printf"},
     {"scanner", "scanf"},
     {"hole", "getchar"} 
 };
@@ -167,7 +168,7 @@ int main(int argc, char* argv[]) {
 
     int compile_result = system(compile_cmd.c_str());
 
-    std::cout << "Komplettiert.\n";
+    std::cout << "Kompeliert.\n";
 
     return 0;
 }

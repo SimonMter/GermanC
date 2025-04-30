@@ -1,0 +1,12 @@
+
+ganzzahl haupt() {
+    ganzzahl zähler = 0;
+    während (zähler < 10) {
+        zähler++;
+        schreibe("Hallo, Welt!");
+        wenn (zähler == 5) {
+            schreibe("Zähler ist jetzt 5");
+        }
+    }
+    zurück 0;
+}
