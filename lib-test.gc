@@ -3,7 +3,8 @@ ganzzahl haupt() {
     ganzzahl zähler = 0;
     während (zähler < 10) {
         zähler++;
-        schreibe("Hallo, Welt!");
+        schreibe("Hallo, Welt schreibe(ich)!"); //schreibe etwas
+
         wenn (zähler == 5) {
             schreibe("Zähler ist jetzt 5");
         }
