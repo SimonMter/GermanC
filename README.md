@@ -22,25 +22,25 @@ Nahtlose Kompilierung und Ausführung des resultierenden Programms
 ## 🛠 Einrichtung
 
 ### 1. Klonen und Kompilieren
-
+```bash
 git clone https://github.com/SimonMter/GermanC
 cd GermanC
 g++ german_c.cpp -o germanc
-
+```
 ### 2. Systemweite Verfügbarkeit einrichten
-
+```bash
 sudo cp germanc /usr/local/bin/
 sudo chmod +x /usr/local/bin/germanc
-
+```
 
 ---
 
 ## 📜 Anwendungshinweise
 
 ### 🧪 Übersetzung einer .gc-Datei
-
+```bash
 ./germanc meinprogramm.gc
-
+```
 Der Ablauf:
 
 Übersetzt meinprogramm.gc in die Datei meinprogramm.c
@@ -59,7 +59,7 @@ Kompiliert das Ergebnis mittels gcc zu einer ausführbaren Datei
 ## 🧪 Anwendungsbeispiel
 
 📝 beispiel.gc
-
+```gc
 #!/usr/bin/env germanc
 
 ganzzahl haupt() {
@@ -70,13 +70,13 @@ ganzzahl haupt() {
         zurück 0;
     }
 }
-
+```
 ▶️ ### Ausführung
-
+```bash
 germanc beispiel.gc
 clang beispiel.c -o bsp
 ./bsp
-
+```
 
 ---
 
