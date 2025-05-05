@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.1.0 - beta";
+const std::string GERMC_VERSION = "1.1.2";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -361,8 +361,25 @@ int main(int argc, char* argv[]) {
 
             return 0;
         } else if (cmd == "clone" || cmd == "hole-das-Werk-hernieder-aus-dem-Wolkenturme-GitHubs") {
-
-        } else if (cmd == "run" || cmd == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke") {
+            std::string target_dir = argv[2];
+        
+            std::string clone_cmd = "git clone https://github.com/SimonMter/GermanC.git " + target_dir;
+        
+            std::cout << "➤ Klone Repository nach '" << target_dir << "'...\n";
+            int result = system(clone_cmd.c_str());
+        
+            if (result == 0) {
+                std::cout << "Repository erfolgreich geklont.\n";
+                std::cout << "Inhalt von " << target_dir << ":\n";
+                std::string list_cmd = "ls " + target_dir;
+                system(list_cmd.c_str());
+                return 0;
+            } else {
+                std::cerr << "Fehler beim Klonen des Repositories.\n";
+                return 1;
+            }
+        }
+        else if (cmd == "run" || cmd == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke") {
             std::ifstream infile(argv[2]);
             if(!infile){
                 std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
@@ -411,8 +428,6 @@ int main(int argc, char* argv[]) {
 
             return 0;
         }
-        
-        
     }
 
 }
