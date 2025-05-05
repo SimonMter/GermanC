@@ -1,75 +1,89 @@
-# 🇩🇪 GermanC
+```
+////////////////////////////////////////////////////////
+//                                                    //
+//     _     ____  _   _  _____  _   _  _   _   ____  //
+//    / \   / ___|| | | ||_   _|| | | || \ | | / ___| //
+//   / _ \ | |    | |_| |  | |  | | | ||  \| || |  _  //
+//  / ___ \| |___ |  _  |  | |  | |_| || |\  || |_| | //
+// /_/   \_\\____||_| |_|  |_|   \___/ |_| \_| \____| //
+//                                                    //
+////////////////////////////////////////////////////////
+```
 
-**GermanC** is a fun programming language that works exactly like C, but with German keywords.  
-You write C code using German words, and this tool will translate it into regular C, compile it, and run it.
+# 🇩🇪 GermanC – Die deutsche C-Alternative
+
+GermanC ist eine Programmiersprache, die in ihrer Funktionsweise dem klassischen C entspricht, jedoch durch die Verwendung deutschsprachiger Schlüsselwörter eine einzigartige stilistische Annäherung bietet.
+Mit GermanC verfassen Sie Quellcode in vertrauter deutscher Sprache, welcher sodann in regulären C-Code überführt und anschließend kompiliert wird.
+
 
 ---
 
-## 🚀 Features
+## 🚀 Besonderheiten
 
-- Write C-like code using German keywords
-- Translates the gc code into C code which can be then run normally 
+Formulierung von C-artigem Quelltext mit deutschsprachigen Befehlen
+
+Automatische Übersetzung der .gc-Dateien in standardkonformen C-Code
+
+Nahtlose Kompilierung und Ausführung des resultierenden Programms
+
+
 
 ---
 
-## 🛠 Installation
+## 🛠 Einrichtung
 
-### 1. Clone and Build
-
+### 1. Klonen und Kompilieren
 ```bash
 git clone https://github.com/SimonMter/GermanC
 cd GermanC
 g++ german_c.cpp -o germanc
 ```
-2. Make it Globally Available
+### 2. Systemweite Verfügbarkeit einrichten
 ```bash
 sudo cp germanc /usr/local/bin/
 sudo chmod +x /usr/local/bin/germanc
 ```
 
-📜 How to Use
-🧪 Translate & Run a .gc File
+---
+
+## 📜 Anwendungshinweise
+
+### 🧪 Übersetzung einer .gc-Datei
 ```bash
 ./germanc meinprogramm.gc
 ```
+Der Ablauf:
 
-It will:
+Übersetzt meinprogramm.gc in die Datei meinprogramm.c
 
-    Translate meinprogramm.gc to meinprogramm.c
+Kompiliert das Ergebnis mittels gcc zu einer ausführbaren Datei
 
-    Compile it using gcc
 
-    Run the output
 
-🔁 Or Run .gc Files Directly
+---
 
-Add this to the top of your .gc file:
-```gc
-#!/usr/bin/env germanc
-```
-Then make it executable:
-```bash
-chmod +x meinprogramm.gc
-```
-Now you can run it like a shell script:
-```bash
-./meinprogramm.gc
-```
-🧠 Supported Keywords
-Deutsch	C Equivalent
-ganzzahl	int
-zeichen	char
-leer	void
-haupt	main
-zurück	return
-wenn	if
-sonst	else
-während	while
-für	for
-breche	break
-fortsetzen	continue
-## 🧪 Example
-### 📝 beispiel.gc
+## 🧠 Unterstützte Schlüsselwörter
+
+
+| Deutsch     | C Equivalent |
+|-------------|--------------|
+| ganzzahl    | int          |
+| zeichen     | char         |
+| leer        | void         |
+| haupt       | main         |
+| zurück      | return       |
+| wenn        | if           |
+| sonst       | else         |
+| während     | while        |
+| für         | for          |
+| breche      | break        |
+| fortsetzen  | continue     |
+
+---
+
+## 🧪 Anwendungsbeispiel
+
+📝 beispiel.gc
 ```gc
 #!/usr/bin/env germanc
 
@@ -82,35 +96,39 @@ ganzzahl haupt() {
     }
 }
 ```
-
-▶️ Run It
+### ▶️ Ausführung
 ```bash
-./beispiel.gc
+germanc beispiel.gc
+clang beispiel.c -o bsp
+./bsp
 ```
-🔧 Requirements (as of now)
 
-    Linux
+---
 
-    g++ to compile the translator
+## 🔧 Systemvoraussetzungen
 
-    gcc to compile generated C files
+Eine Linux-basierte Umgebung
 
-📦 Optional: Package for Others
+g++ zur Übersetzung des GermanC-Interpreters
 
-You can compile germanc once and share the binary. No C++ required on the user’s system afterwards!
-
-https://www.instagram.com/p/DGHY4zSqkhw/?igsh=bzk3cDh4MnNxOHY5
-
-now GermanC is real and it can hurt you :)
-
+gcc zur Kompilierung des generierten C-Codes
 
 
 
 ---
 
-Let me know if you'd like me to:
-- Add a logo or emoji header
-- Make this a GitHub repo template
-- Include setup scripts for easier onboarding
+## 📦 Optionale Weitergabe
 
-Want me to generate a real example `.gc` file to go along with this?
+Der GermanC-Übersetzer lässt sich einmalig kompilieren und als ausführbare Datei weitergeben. Eine lokale C++-Umgebung ist für Endnutzer dann nicht länger erforderlich.
+
+---
+
+> https://www.instagram.com/p/DGHY4zSqkhw/?igsh=bzk3cDh4MnNxOHY5
+
+
+GermanC ist nun Realität – und sie könnte Ihnen gefährlich werden.
+
+
+---
+
+Bei Rückfragen oder etwaigen Komplikationen zögern Sie bitte nicht, sich mitzuteilen.
