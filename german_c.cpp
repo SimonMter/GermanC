@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.0.3";
+const std::string GERMC_VERSION = "1.1.0 - beta";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -114,11 +114,11 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    if (std::string(argv[1]) == "--help") {
+    if (std::string(argv[1]) == "--help" || std::string(argv[1]) == "Anleitung-zur-rechten-Handhabung") {
         std::cout << "Benutzung: germanc <Datei.gc>\n"
                   << "Optionen:\n"
                   << "  --version      Zeigt die aktuelle Version\n"
-                  << "  --help         Zeigt diese Hilfe\n";
+                  << "  --help         Zeigt die Anleitung zur rechten Handhabung\n";
         return 0;
     }
     
@@ -128,47 +128,112 @@ int main(int argc, char* argv[]) {
         std::cerr << "Oder: germanc --version\n";
         return 1;
     }
-
-    std::ifstream infile(argv[1]);
-    if(!infile){
-        std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
-        return 1;
-    }
-
-    std::string input_filename = argv[1];
-    std::string output_filename = input_filename;
-    size_t pos = output_filename.find(".gc");
-    if(pos != std::string::npos){
-        output_filename.replace(pos, 3, ".c");
-    }else{
-        output_filename += ".c";
-    }
-
-    std::ofstream outfile(output_filename);
-    if(!outfile){
-        std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
-        return 1;
-    }
-
-    std::string line;
-    bool is_shebang = true;
-    outfile << "#include <stdio.h>\n";
-    while(std::getline(infile, line)){
-
-        if (is_shebang && line.find("#!") == 0) {
-            is_shebang = false;
-            continue;
+    if(argc == 2 && !(argv[1] == "features" || argv[1] == "Kunstfertigkeiten-des-Werkes")
+        && !(argv[1] == "globalize" || argv[1] == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")){
+        
+        std::ifstream infile(argv[1]);
+        if(!infile){
+            std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
+            return 1;
         }
-        outfile << tranlate_line(line) << "\n";
+
+        std::string input_filename = argv[1];
+        std::string output_filename = input_filename;
+        size_t pos = output_filename.find(".gc");
+        if(pos != std::string::npos){
+            output_filename.replace(pos, 3, ".c");
+        }else{
+            output_filename += ".c";
+        }
+
+        std::ofstream outfile(output_filename);
+        if(!outfile){
+            std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
+            return 1;
+        }
+
+        std::string line;
+        bool is_shebang = true;
+        outfile << "#include <stdio.h>\n";
+        while(std::getline(infile, line)){
+
+            if (is_shebang && line.find("#!") == 0) {
+                is_shebang = false;
+                continue;
+            }
+            outfile << tranlate_line(line) << "\n";
+        }
+        std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
+
+        std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+        std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
+
+        int compile_result = system(compile_cmd.c_str());
+
+        std::cout << "Kompeliert.\n";
+
+        return 0;
+    }else if(argc == 2 && (argv[1] == "features" || argv[1] == "Kunstfertigkeiten-des-Werkes")){
+    
+    }else if(argc == 2 && (argv[1] == "globalize" || argv[1] == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")){
+
     }
-    std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
-    std::string compile_cmd = "gcc " + output_filename + " -o out_program";
-    std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
+    if(argc == 3){
+        if(argv[1] == "translate" || argv[1] == "übersetze-mit-heiligem-Ernst"){
+            std::ifstream infile(argv[1]);
+            if(!infile){
+                std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
+                return 1;
+            }
+            std::string input_filename = argv[1];
+            std::string output_filename = input_filename;
+            size_t pos = output_filename.find(".gc");
+            if(pos != std::string::npos){
+                output_filename.replace(pos, 3, ".c");
+            }else{
+                output_filename += ".c";
+            }
 
-    int compile_result = system(compile_cmd.c_str());
+            std::ofstream outfile(output_filename);
+            if(!outfile){
+                std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
+                return 1;
+            }
 
-    std::cout << "Kompeliert.\n";
+            std::string line;
+            bool is_shebang = true;
+            outfile << "#include <stdio.h>\n";
+            while(std::getline(infile, line)){
 
-    return 0;
+                if (is_shebang && line.find("#!") == 0) {
+                    is_shebang = false;
+                    continue;
+                }
+                outfile << tranlate_line(line) << "\n";
+            }
+            std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
+
+            std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+            std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
+
+            int compile_result = system(compile_cmd.c_str());
+
+            std::cout << "Kompeliert.\n";
+
+            return 0;
+        }
+        if(argv[1] == "build" || argv[1] == "schmiede-den-Quell-wie-ein-Runenschreiber-am-Amboss"){
+
+        }if(argv[1] == "clone" || argv[1] == "hole-das-Werk-hernieder-aus-dem-Wolkenturme-GitHubs"){
+
+        }if(argv[1] == "run" || argv[1] == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke"){
+
+        }
+        
+        
+        
+        
+        
+    }
 }

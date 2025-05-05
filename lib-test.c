@@ -2,12 +2,12 @@
 
 int main() {
     int zähler = 0;
+    int i = 0;
     while (zähler < 10) {
         zähler++;
-        printf("Hallo, Welt printf(ich)!"); //printf etwas
+        printf("Hallo, Welt printf(ich)!");
 
         if (zähler == 5) {
-            // schreibt einen komment
             printf("Zähler ist jetzt 5");
         }
     }

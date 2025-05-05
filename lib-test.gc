@@ -1,9 +1,10 @@
 
 ganzzahl haupt() {
     ganzzahl zähler = 0;
+    ganzzahl i = 0;
     während (zähler < 10) {
         zähler++;
-        schreibe("Hallo, Welt schreibe(ich)!"); //schreibe etwas
+        schreibe("Hallo, Welt schreibe(ich)!");
 
         wenn (zähler == 5) {
             schreibe("Zähler ist jetzt 5");
