@@ -1,62 +1,65 @@
-# 🇩🇪 GermanC
 
-**GermanC** is a programming language that works exactly like C, but with German keywords.  
-You write C code using German words, and this tool will translate it into regular C and compile it
+🇩🇪 GermanC – Die deutsche C-Alternative
 
----
+GermanC ist eine Programmiersprache, die in ihrer Funktionsweise dem klassischen C entspricht, jedoch durch die Verwendung deutschsprachiger Schlüsselwörter eine einzigartige stilistische Annäherung bietet.
+Mit GermanC verfassen Sie Quellcode in vertrauter deutscher Sprache, welcher sodann in regulären C-Code überführt und anschließend kompiliert wird.
 
-## 🚀 Features
-
-- Write C-like code using German keywords
-- Translates the gc code into C code which can be then run normally 
 
 ---
 
-## 🛠 Installation
+🚀 Besonderheiten
 
-### 1. Clone and Build
+Formulierung von C-artigem Quelltext mit deutschsprachigen Befehlen
 
-```bash
+Automatische Übersetzung der .gc-Dateien in standardkonformen C-Code
+
+Nahtlose Kompilierung und Ausführung des resultierenden Programms
+
+
+
+---
+
+🛠 Einrichtung
+
+1. Klonen und Kompilieren
+
 git clone https://github.com/SimonMter/GermanC
 cd GermanC
 g++ german_c.cpp -o germanc
-```
-2. Make it Globally Available
-```bash
+
+2. Systemweite Verfügbarkeit einrichten
+
 sudo cp germanc /usr/local/bin/
 sudo chmod +x /usr/local/bin/germanc
-```
 
-📜 How to Use
-🧪 Translate a .gc File
-```bash
+
+---
+
+📜 Anwendungshinweise
+
+🧪 Übersetzung einer .gc-Datei
+
 ./germanc meinprogramm.gc
-```
 
-### It will:
+Der Ablauf:
 
-Translate meinprogramm.gc to meinprogramm.c
+Übersetzt meinprogramm.gc in die Datei meinprogramm.c
 
-Compile it using gcc
+Kompiliert das Ergebnis mittels gcc zu einer ausführbaren Datei
 
 
-🧠 Supported Keywords
-Deutsch	C Equivalent
-ganzzahl	int
-zeichen	char
-leer	void
-haupt	main
-zurück	return
-wenn	if
-sonst	else
-während	while
-für	for
-breche	break
-fortsetzen	continue
 
-## 🧪 Example
-### 📝 beispiel.gc
-```gc
+---
+
+🧠 Unterstützte Schlüsselwörter
+
+
+---
+
+🧪 Anwendungsbeispiel
+
+📝 beispiel.gc
+
 #!/usr/bin/env germanc
 
 ganzzahl haupt() {
@@ -67,34 +70,40 @@ ganzzahl haupt() {
         zurück 0;
     }
 }
-```
 
-▶️ Run It
-```bash
+▶️ Ausführung
+
 germanc beispiel.gc
 clang beispiel.c -o bsp
 ./bsp
-```
-🔧 Requirements (as of now)
 
-    Linux
 
-    g++ to compile the translator
+---
 
-    gcc to compile generated C files
+🔧 Systemvoraussetzungen
 
-📦 Optional: Package for Others
+Eine Linux-basierte Umgebung
 
-You can compile germanc once and share the binary. No C++ required on the user’s system afterwards!
+g++ zur Übersetzung des GermanC-Interpreters
 
-https://www.instagram.com/p/DGHY4zSqkhw/?igsh=bzk3cDh4MnNxOHY5
-
-now GermanC is real and it can hurt you :)
-
+gcc zur Kompilierung des generierten C-Codes
 
 
 
 ---
 
-Let me know if you experience any issues.
+📦 Optionale Weitergabe
 
+Der GermanC-Übersetzer lässt sich einmalig kompilieren und als ausführbare Datei weitergeben. Eine lokale C++-Umgebung ist für Endnutzer dann nicht länger erforderlich.
+
+---
+
+> https://www.instagram.com/p/DGHY4zSqkhw/?igsh=bzk3cDh4MnNxOHY5
+
+
+GermanC ist nun Realität – und sie könnte Ihnen gefährlich werden.
+
+
+---
+
+Bei Rückfragen oder etwaigen Komplikationen zögern Sie bitte nicht, sich mitzuteilen.
