@@ -54,6 +54,20 @@ Kompiliert das Ergebnis mittels gcc zu einer ausführbaren Datei
 ## 🧠 Unterstützte Schlüsselwörter
 
 
+| Deutsch     | C Equivalent |
+|-------------|--------------|
+| ganzzahl    | int          |
+| zeichen     | char         |
+| leer        | void         |
+| haupt       | main         |
+| zurück      | return       |
+| wenn        | if           |
+| sonst       | else         |
+| während     | while        |
+| für         | for          |
+| breche      | break        |
+| fortsetzen  | continue     |
+
 ---
 
 ## 🧪 Anwendungsbeispiel
