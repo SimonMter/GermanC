@@ -1,6 +1,6 @@
 # 🇩🇪 GermanC
 
-**GermanC** is a fun programming language that works exactly like C, but with German keywords.  
+**GermanC** is a programming language that works exactly like C, but with German keywords.  
 You write C code using German words, and this tool will translate it into regular C and compile it
 
 ---
