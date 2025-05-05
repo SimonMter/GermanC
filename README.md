@@ -1,7 +1,7 @@
 # 🇩🇪 GermanC
 
 **GermanC** is a fun programming language that works exactly like C, but with German keywords.  
-You write C code using German words, and this tool will translate it into regular C, compile it, and run it.
+You write C code using German words, and this tool will translate it into regular C and compile it
 
 ---
 
@@ -28,33 +28,18 @@ sudo chmod +x /usr/local/bin/germanc
 ```
 
 📜 How to Use
-🧪 Translate & Run a .gc File
+🧪 Translate a .gc File
 ```bash
 ./germanc meinprogramm.gc
 ```
 
-It will:
+### It will:
 
-    Translate meinprogramm.gc to meinprogramm.c
+Translate meinprogramm.gc to meinprogramm.c
 
-    Compile it using gcc
+Compile it using gcc
 
-    Run the output
 
-🔁 Or Run .gc Files Directly
-
-Add this to the top of your .gc file:
-```gc
-#!/usr/bin/env germanc
-```
-Then make it executable:
-```bash
-chmod +x meinprogramm.gc
-```
-Now you can run it like a shell script:
-```bash
-./meinprogramm.gc
-```
 🧠 Supported Keywords
 Deutsch	C Equivalent
 ganzzahl	int
@@ -68,6 +53,7 @@ während	while
 für	for
 breche	break
 fortsetzen	continue
+
 ## 🧪 Example
 ### 📝 beispiel.gc
 ```gc
@@ -85,7 +71,9 @@ ganzzahl haupt() {
 
 ▶️ Run It
 ```bash
-./beispiel.gc
+germanc beispiel.gc
+clang beispiel.c -o bsp
+./bsp
 ```
 🔧 Requirements (as of now)
 
