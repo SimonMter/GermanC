@@ -96,7 +96,7 @@ ganzzahl haupt() {
     }
 }
 ```
-▶️ ### Ausführung
+### ▶️ Ausführung
 ```bash
 germanc beispiel.gc
 clang beispiel.c -o bsp
