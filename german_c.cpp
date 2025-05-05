@@ -114,11 +114,64 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    if (std::string(argv[1]) == "--help" || std::string(argv[1]) == "Anleitung-zur-rechten-Handhabung") {
-        std::cout << "Benutzung: germanc <Datei.gc>\n"
-                  << "Optionen:\n"
-                  << "  --version      Zeigt die aktuelle Version\n"
-                  << "  --help         Zeigt die Anleitung zur rechten Handhabung\n";
+    if (argc == 2 && (std::string(argv[1]) == "update" || std::string(argv[1]) == "aktualisiere-die-Weisheit")) {
+        std::cout << "➤ Aktualisiere von GitHub...\n";
+        
+        system("rm -rf GermanC");
+        int clone_status = system("git clone https://github.com/SimonMter/GermanC.git");
+    
+        if (clone_status != 0) {
+            std::cerr << "❌ Fehler beim Klonen des Repositories.\n";
+            return 1;
+        }
+    
+        std::cout << "➤ Kompiliere german_c.cpp...\n";
+        int compile_status = system("g++ GermanC/german_c.cpp -o germanc");
+    
+        if (compile_status != 0) {
+            std::cerr << "Fehler beim Kompilieren von german_c.cpp.\n";
+            return 1;
+        }
+    
+        std::cout << "➤ Installiere 'germanc' systemweit...\n";
+        std::string copy_cmd = "sudo cp germanc /usr/local/bin/germanc.new";
+        std::string move_cmd = "sudo mv /usr/local/bin/germanc.new /usr/local/bin/germanc";
+        std::string chmod_cmd = "sudo chmod +x /usr/local/bin/germanc";
+
+        int copy_status = system(copy_cmd.c_str());
+        int move_status = system(move_cmd.c_str());
+        int chmod_status = system(chmod_cmd.c_str());
+
+    
+        if (copy_status == 0 && chmod_status == 0) {
+            std::cout << "'germanc' wurde erfolgreich aktualisiert und global installiert.\n";
+            return 0;
+        } else {
+            std::cerr << "Fehler beim Kopieren oder Setzen der Rechte für 'germanc'.\n";
+            return 1;
+        }
+    }
+    if (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "Anleitung-zur-rechten-Handhabung")) {
+        std::cout << "GERMANC " << GERMC_VERSION << " – der Übersetzer der deutschen C-Weisheit\n\n"
+                  << "Benutzung:\n"
+                  << "  germanc <Datei.gc>                      Übersetzt und kompiliert die Datei\n"
+                  << "  germanc translate <Datei.gc>           Nur übersetzen (kein Kompilieren)\n"
+                  << "  germanc build <Datei.gc>               Übersetzen und dann kompilieren\n"
+                  << "  germanc run <Datei.gc>                 Übersetzen, kompilieren und ausführen\n"
+                  << "\n"
+                  << "Verfügbare Befehle (auch auf Deutsch!):\n"
+                  << "  update | aktualisiere-die-Weisheit     Lade und installiere neueste Version\n"
+                  << "  globalize | verbreite-den-Übersetzer-...   Installiere systemweit\n"
+                  << "     --delete                            Entfernt lokale Kopie nach Installation\n"
+                  << "  features | Kunstfertigkeiten-des-Werkes Zeigt unterstützte Sprachmerkmale\n"
+                  << "  --version                              Zeigt die aktuelle Version\n"
+                  << "  --help | Anleitung-zur-rechten-Handhabung  Zeigt diese Hilfe\n"
+                  << "\n"
+                  << "Beispiel:\n"
+                  << "  germanc programm.gc\n"
+                  << "  germanc build mein_code.gc\n"
+                  << "  germanc run test.gc\n\n"
+                  << "Mehr Informationen unter: https://github.com/SimonMter/GermanC\n";
         return 0;
     }
     
@@ -165,9 +218,12 @@ int main(int argc, char* argv[]) {
             }
             outfile << translate_line(line) << "\n";
         }
+        outfile.close();
         std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
-        std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+        std::string exec_name = output_filename.substr(0, output_filename.find_last_of('.'));
+
+        std::string compile_cmd = "gcc " + output_filename + " -o " + exec_name;
         std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
 
         int compile_result = system(compile_cmd.c_str());
@@ -190,7 +246,9 @@ int main(int argc, char* argv[]) {
      std::string(argv[2]) == "--delete")) {
 
 
-        std::string copy_cmd = "sudo cp germanc /usr/local/bin/";
+        std::string self_path = argv[0];
+        std::string copy_cmd = "sudo cp \"" + self_path + "\" /usr/local/bin/germanc";
+
         std::string chmod_cmd = "sudo chmod +x /usr/local/bin/germanc";
         std::string delete_cmd = "rm -f germanc";
 
@@ -254,9 +312,47 @@ int main(int argc, char* argv[]) {
                 }
                 outfile << translate_line(line) << "\n";
             }
+            outfile.close();
             std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
-            std::string compile_cmd = "gcc " + output_filename + " -o out_program";
+            return 0;
+        } else if (cmd == "build" || cmd == "schmiede-den-Quell-wie-ein-Runenschreiber-am-Amboss") {
+            std::ifstream infile(argv[2]);
+            if(!infile){
+                std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
+                return 1;
+            }
+            std::string input_filename = argv[2];
+            std::string output_filename = input_filename;
+            size_t pos = output_filename.find(".gc");
+            if(pos != std::string::npos){
+                output_filename.replace(pos, 3, ".c");
+            }else{
+                output_filename += ".c";
+            }
+
+            std::ofstream outfile(output_filename);
+            if(!outfile){
+                std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
+                return 1;
+            }
+
+            std::string line;
+            bool is_shebang = true;
+            outfile << "#include <stdio.h>\n";
+            while(std::getline(infile, line)){
+
+                if (is_shebang && line.find("#!") == 0) {
+                    is_shebang = false;
+                    continue;
+                }
+                outfile << translate_line(line) << "\n";
+            }
+            outfile.close();
+            std::string exec_name = output_filename.substr(0, output_filename.find_last_of('.'));
+            std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
+
+            std::string compile_cmd = "gcc " + output_filename + " -o " + exec_name;
             std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
 
             int compile_result = system(compile_cmd.c_str());
@@ -264,12 +360,56 @@ int main(int argc, char* argv[]) {
             std::cout << "Kompiliert.\n";
 
             return 0;
-        } else if (cmd == "build" || cmd == "schmiede-den-Quell-wie-ein-Runenschreiber-am-Amboss") {
-
         } else if (cmd == "clone" || cmd == "hole-das-Werk-hernieder-aus-dem-Wolkenturme-GitHubs") {
 
         } else if (cmd == "run" || cmd == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke") {
+            std::ifstream infile(argv[2]);
+            if(!infile){
+                std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
+                return 1;
+            }
+            std::string input_filename = argv[2];
+            std::string output_filename = input_filename;
+            size_t pos = output_filename.find(".gc");
+            if(pos != std::string::npos){
+                output_filename.replace(pos, 3, ".c");
+            }else{
+                output_filename += ".c";
+            }
 
+            std::ofstream outfile(output_filename);
+            if(!outfile){
+                std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
+                return 1;
+            }
+
+            std::string line;
+            bool is_shebang = true;
+            outfile << "#include <stdio.h>\n";
+            while(std::getline(infile, line)){
+
+                if (is_shebang && line.find("#!") == 0) {
+                    is_shebang = false;
+                    continue;
+                }
+                outfile << translate_line(line) << "\n";
+            }
+            outfile.close();
+            std::string exec_name = output_filename.substr(0, output_filename.find_last_of('.'));
+            std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
+
+            std::string compile_cmd = "gcc " + output_filename + " -o " + exec_name;
+            std::cout << "Kompilieren mit Befehl: " << compile_cmd << std::endl;
+
+            int compile_result = system(compile_cmd.c_str());
+            std::cout << "Kompiliert.\n";
+
+            std::string run_cmd = "./" + exec_name;
+            int run_result = system(run_cmd.c_str());
+
+            std::cout << "Ausgeführt.\n";
+
+            return 0;
         }
         
         
