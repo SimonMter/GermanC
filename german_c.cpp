@@ -94,7 +94,7 @@ std::string translate_arrays(const std::string& line) {
 }
 
 
-std::string tranlate_line(const std::string& line){
+std::string translate_line(const std::string& line){
     std::string translated = line;
     for(const auto& [german, cword] : keyword_map){
         std::regex pattern("\\b" + german + "\\b");
@@ -123,17 +123,19 @@ int main(int argc, char* argv[]) {
     }
     
 
-    if (argc != 2) {
+    if (argc > 3) {
         std::cerr << "Benutzung: germanc <Datei.gc>\n";
         std::cerr << "Oder: germanc --version\n";
         return 1;
     }
-    if(argc == 2 && !(argv[1] == "features" || argv[1] == "Kunstfertigkeiten-des-Werkes")
-        && !(argv[1] == "globalize" || argv[1] == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")){
-        
+    if (argc == 2 &&
+        !(std::string(argv[1]) == "features" || std::string(argv[1]) == "Kunstfertigkeiten-des-Werkes") &&
+        !(std::string(argv[1]) == "globalize" || std::string(argv[1]) == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")) {
+
         std::ifstream infile(argv[1]);
         if(!infile){
             std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
+            std::cout << argv[1];
             return 1;
         }
 
@@ -161,7 +163,7 @@ int main(int argc, char* argv[]) {
                 is_shebang = false;
                 continue;
             }
-            outfile << tranlate_line(line) << "\n";
+            outfile << translate_line(line) << "\n";
         }
         std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
@@ -173,20 +175,60 @@ int main(int argc, char* argv[]) {
         std::cout << "Kompeliert.\n";
 
         return 0;
-    }else if(argc == 2 && (argv[1] == "features" || argv[1] == "Kunstfertigkeiten-des-Werkes")){
-    
-    }else if(argc == 2 && (argv[1] == "globalize" || argv[1] == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")){
+    }
+    if (argc == 2 &&
+        (std::string(argv[1]) == "features" || std::string(argv[1]) == "Kunstfertigkeiten-des-Werkes")) {
+        std::cout << "GERMC Features:\n"
+                  << "- Übersetzt Deutsch-ähnliche C-Syntax in echtes C\n"
+                  << "- Unterstützt if/else, loops, datentypen, Funktionen, etc.\n"
+                  << "- Kompiliert direkt nach der Übersetzung mit gcc\n"
+                  << "- Unterstützt shebang-Erkennung\n"
+                  << "- Optionale Funktionsnamenübersetzung\n";
+        return 0;
+    }if ((argc == 2 && (std::string(argv[1]) == "globalize" || std::string(argv[1]) == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie")) ||
+    (argc == 3 && (std::string(argv[1]) == "globalize" || std::string(argv[1]) == "verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie") &&
+     std::string(argv[2]) == "--delete")) {
 
+
+        std::string copy_cmd = "sudo cp germanc /usr/local/bin/";
+        std::string chmod_cmd = "sudo chmod +x /usr/local/bin/germanc";
+        std::string delete_cmd = "rm -f germanc";
+
+        std::cout << "➤ Kopiere 'germanc' nach /usr/local/bin ...\n";
+        int copy_status = system(copy_cmd.c_str());
+        
+        int chmod_status = system(chmod_cmd.c_str());
+
+        if (copy_status == 0 && chmod_status == 0) {
+            std::cout << "'germanc' ist nun systemweit verfügbar.\n";
+
+            if (argc == 3 && std::string(argv[2]) == "--delete") {
+                std::cout << "➤ Lokale Datei wird gelöscht ...\n";
+                int del_status = system(delete_cmd.c_str());
+                if (del_status == 0) {
+                    std::cout << "Lokale Datei erfolgreich entfernt.\n";
+                } else {
+                    std::cerr << "Fehler beim Löschen der lokalen Datei.\n";
+                }
+            }
+
+            return 0;
+        } else {
+            std::cerr << "Fehler beim Kopieren oder Setzen der Rechte.\n";
+            return 1;
+        }
     }
 
+
     if(argc == 3){
-        if(argv[1] == "translate" || argv[1] == "übersetze-mit-heiligem-Ernst"){
-            std::ifstream infile(argv[1]);
+        std::string cmd = std::string(argv[1]);
+        if (cmd == "translate" || cmd == "übersetze-mit-heiligem-Ernst") {
+            std::ifstream infile(argv[2]);
             if(!infile){
                 std::cerr << "Fehler: Datei konnte nicht geöffnet werden. \n";
                 return 1;
             }
-            std::string input_filename = argv[1];
+            std::string input_filename = argv[2];
             std::string output_filename = input_filename;
             size_t pos = output_filename.find(".gc");
             if(pos != std::string::npos){
@@ -210,7 +252,7 @@ int main(int argc, char* argv[]) {
                     is_shebang = false;
                     continue;
                 }
-                outfile << tranlate_line(line) << "\n";
+                outfile << translate_line(line) << "\n";
             }
             std::cout << "Übersetzung abgeschlossem: " << output_filename <<"\n";
 
@@ -219,21 +261,18 @@ int main(int argc, char* argv[]) {
 
             int compile_result = system(compile_cmd.c_str());
 
-            std::cout << "Kompeliert.\n";
+            std::cout << "Kompiliert.\n";
 
             return 0;
+        } else if (cmd == "build" || cmd == "schmiede-den-Quell-wie-ein-Runenschreiber-am-Amboss") {
+
+        } else if (cmd == "clone" || cmd == "hole-das-Werk-hernieder-aus-dem-Wolkenturme-GitHubs") {
+
+        } else if (cmd == "run" || cmd == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke") {
+
         }
-        if(argv[1] == "build" || argv[1] == "schmiede-den-Quell-wie-ein-Runenschreiber-am-Amboss"){
-
-        }if(argv[1] == "clone" || argv[1] == "hole-das-Werk-hernieder-aus-dem-Wolkenturme-GitHubs"){
-
-        }if(argv[1] == "run" || argv[1] == "führe-das-Artefakt-zur-Ausführung-auf-dass-der-Compiler-frohlocke"){
-
-        }
-        
-        
-        
         
         
     }
+
 }
