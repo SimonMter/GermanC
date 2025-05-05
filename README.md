@@ -96,9 +96,5 @@ now GermanC is real and it can hurt you :)
 
 ---
 
-Let me know if you'd like me to:
-- Add a logo or emoji header
-- Make this a GitHub repo template
-- Include setup scripts for easier onboarding
+Let me know if you experience any issues.
 
-Want me to generate a real example `.gc` file to go along with this?
