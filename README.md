@@ -34,10 +34,15 @@ g++ german_c.cpp -o germanc
 ```
 ### 2. Systemweite Verfügbarkeit einrichten
 ```bash
-germanc globalize
+./germanc globalize
 ```
 ### Anwendungshinweise
 Übersetzung einer .gc-Datei
+(wenn im Ordner mit germanc)
+```bash
+./germanc meinprogramm.gc
+```
+oder nach globalisierung
 ```bash
 ./germanc meinprogramm.gc
 ```
