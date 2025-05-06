@@ -46,54 +46,73 @@ germanc globalize
 Übersetzt meinprogramm.gc in die Datei meinprogramm.c
 
 Kompiliert das Ergebnis mittels gcc zu einer ausführbaren Datei
+# Deutsche C-Schlüsselwörter
 
-## Unterstützte Schlüsselwörter
-| Deutsch                     | C Equivalent   |
-|-----------------------------|----------------|
-| ganzzahl                    | int            |
-| zeichen                     | char           |
-| leer                        | void           |
-| haupt                       | main           |
-| zurück                      | return         |
-| wenn                         | if             |
-| sonst                        | else           |
-| während                      | while          |
-| für                          | for            |
-| breche                       | break          |
-| fortsetzen                   | continue       |
-| fließkommazahl               | float          |
-| doppelt                      | double         |
-| lang                         | long           |
-| kurz                         | short          |
-| gleich                       | ==             |
-| nicht_gleich                 | !=             |
-| größer                       | >              |
-| kleiner                      | <              |
-| größer_oder_gleich           | >=             |
-| kleiner_oder_gleich          | <=             |
-| und                          | &&             |
-| oder                         |                |
-| nicht                        | !              |
-| wahr                         | true           |
-| falsch                       | false          |
-| null                         | NULL           |
-| konstant                     | const          |
-| extern                       | extern         |
-| statisch                     | static         |
-| zeichenfolge                 | char*          |
-| beinhalte                    | include        |
-| definieren                   | define         |
-| kommentar                    | //             |
-| kommentar_block              | /* */          |
-| kommentar_block_anfang       | /*             |
-| kommentar_block_ende         | */             |
-| strukturen                   | struct         |
-| union                        | union          |
-| enum                         | enum           |
-| typedef                      | typedef        |
-| volatile                     | volatile       |
-| register                     | register       |
-| inline                       | inline         |
+Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren C-Sprachäquivalenten zugeordnet sind, sowie eine detaillierte Beschreibung.
+
+## 📘 Deutsche C-Schlüsselwort-Tabelle
+
+| 🇩🇪 Deutsches Schlüsselwort    | 🇺🇸 C Äquivalent      | 📖 Bedeutung / Beschreibung                                           |
+|------------------------------|-----------------------|-----------------------------------------------------------------------|
+| `ganzzahl`                   | `int`                 | Ganzzahliger Datentyp                                                 |
+| `bitzeichen`                 | `char`                | Zeichen (bitweises Symbol)                                            |
+| `zurück`                     | `return`              | Rückgabe aus einer Funktion                                           |
+| `soferne`                    | `if`                  | Bedingte Verzweigung                                                  |
+| `andernfalls`                | `else`                | Alternative Verzweigung                                               |
+| `während`                    | `while`               | Wiederholungsschleife (solange Bedingung wahr ist)                    |
+| `durchlaufe`                 | `for`                 | Schleife (wiederholt sich eine festgelegte Anzahl von Malen)          |
+| `nichtig`                    | `void`                | Kein Rückgabewert (leerer Rückgabewert)                               |
+| `ursprung`                   | `main`                | Einstiegspunkt der Hauptfunktion                                      |
+| `unterbrech`                 | `break`               | Verlassen einer Schleife                                              |
+| `weitergehen`                | `continue`            | Überspringen der aktuellen Iteration und Fortsetzen der Schleife      |
+| `fließkommazahl`             | `float`               | Fließkommazahl (einfache Genauigkeit)                                 |
+| `doppelt`                    | `double`              | Fließkommazahl (doppelte Genauigkeit)                                 |
+| `lang`                       | `long`                | Lange Ganzzahl                                                        |
+| `kurz`                       | `short`               | Kurze Ganzzahl                                                        |
+| `gleich`                     | `==`                  | Vergleich auf Gleichheit                                              |
+| `nicht_gleich`               | `!=`                  | Vergleich auf Ungleichheit                                            |
+| `größer`                     | `>`                   | Vergleich auf Größer als                                              |
+| `kleiner`                    | `<`                   | Vergleich auf Kleiner als                                             |
+| `größer_oder_gleich`         | `>=`                  | Vergleich auf Größer oder Gleich                                      |
+| `kleiner_oder_gleich`        | `<=`                  | Vergleich auf Kleiner oder Gleich                                     |
+| `und`                        | `&&`                  | Logisches Und                                                         |
+| `oder`                       | `||`                  | Logisches Oder                                                        |
+| `nicht`                      | `!`                   | Logisches Nicht                                                       |
+| `wahr`                       | `true`                | Wahrheitswert "wahr"                                                  |
+| `falsch`                     | `false`               | Wahrheitswert "falsch"                                                |
+| `null`                       | `NULL`                | Null-Pointer                                                          |
+| `konstant`                   | `const`               | Konstantenbezeichner (unveränderlicher Wert)                          |
+| `extern`                     | `extern`              | Externe Verknüpfung, bezeichnet Variablen/Funktionen in anderen Dateien|
+| `statisch`                   | `static`              | Statische Speicherung, variablen-spezifisch (lokale Lebensdauer)      |
+| `zeichenfolge`               | `char*`               | Zeichenketten (Zeiger auf ein Array von Zeichen)                      |
+| `beinhalte`                  | `#include`            | Präprozessor-Direktive zum Einfügen von Header-Dateien                |
+| `definieren`                 | `#define`             | Präprozessor-Makrodefinition                                          |
+| `kommentar`                  | `//`                  | Einzeilige Kommentar-Markierung                                       |
+| `kommentar_block`            | `/* */`               | Block-Kommentar-Markierung                                            |
+| `kommentar_block_anfang`     | `/*`                  | Beginn eines Block-Kommentars                                         |
+| `kommentar_block_ende`       | `*/`                  | Ende eines Block-Kommentars                                           |
+| `strukturen`                 | `struct`              | Strukturdefinition für benutzerdefinierte Datentypen                  |
+| `blockzeitlich`              | `auto`                | Block-spezifische automatische Speicherung                            |
+| `fallunterscheidung`         | `switch`              | Auswahlstruktur (Verzweigung basierend auf einem Ausdruck)            |
+| `fall`                       | `case`                | Fallzweig innerhalb einer `switch`-Struktur                           |
+| `vorzeichenfrei`             | `unsigned`            | Vorzeichenloser Modifikator                                           |
+| `vorzeichenbehaftet`         | `signed`              | Vorzeichenbehafteter Modifikator                                      |
+| `standardfall`               | `default`             | Standardfall innerhalb einer `switch`-Struktur                        |
+| `springezu`                  | `goto`                | Unbedingter Sprung zu einer anderen Stelle im Programm                |
+| `größewert`                  | `sizeof`              | Bestimmung der Größe eines Datentyps in Bytes                         |
+| `unvorhersagbar`             | `volatile`            | Verhindert Optimierung aufgrund externer Veränderungen                |
+| `ausführen`                  | `do`                  | `do...while` Schleife (wird mindestens einmal ausgeführt)             |
+| `gemeinspeicher`             | `union`               | Gemeinsame Speichernutzung für verschiedene Datentypen                |
+| `wertreihe`                  | `enum`                | Aufzählung von benannten Konstanten                                   |
+| `typbenennung`               | `typedef`             | Definition von Typaliasen                                             |
+| `schnellspeicher`            | `register`            | Hinweis auf schnelle Speicherung von Variablen                        |
+| `einfügefunktion`            | `inline`              | Inline-Ersetzung einer Funktion, um den Funktionsaufruf zu vermeiden  |
+| `schreibe`                   | `printf`              | Ausgabe auf der Konsole                                               |
+| `scanner`                    | `scanf`               | Eingabe von Benutzerdaten über die Konsole                            |
+| `hole`                       | `getchar`             | Liest ein Zeichen aus dem Eingabestrom                                |
+
+---
+
 
 ## Anwendungsbeispiel
 Beispielcode (beispiel.gc):
