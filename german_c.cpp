@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.1.3";
+const std::string GERMC_VERSION = "1.1.4";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
         std::cout << "➤ Aktualisiere von GitHub...\n";
         
         system("rm -rf GermanC");
-        int clone_status = system("git clone https://github.com/SimonMter/GermanC-proto.git");
+        int clone_status = system("git clone https://github.com/SimonMter/GermanC.git");
     
         if (clone_status != 0) {
             std::cerr << "❌ Fehler beim Klonen des Repositories.\n";
