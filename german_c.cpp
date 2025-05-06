@@ -9,16 +9,16 @@ const std::string GERMC_VERSION = "1.1.2";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
-    {"zeichen", "char"},
+    {"bitzeichen", "char"},
     {"zurück", "return"},
-    {"wenn", "if"},
-    {"sonst", "else"},
+    {"soferne", "if"},
+    {"andernfalls", "else"},
     {"während", "while"},
-    {"für", "for"},
-    {"leer", "void"},
-    {"haupt", "main"},
-    {"breche", "break"},
-    {"fortsetzen", "continue"},
+    {"durchlaufe", "for"},
+    {"nichtig", "void"},
+    {"ursprung", "main"},
+    {"unterbrech", "break"},
+    {"weitergehen", "continue"},
     {"fließkommazahl", "float"},
     {"doppelt", "double"},
     {"lang", "long"},
@@ -46,18 +46,29 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"kommentar_block_anfang", "/*"},
     {"kommentar_block_ende", "*/"},
     {"strukturen", "struct"},
-    {"union", "union"},
-    {"enum", "enum"},
-    {"typedef", "typedef"},
-    {"volatile", "volatile"},
-    {"register", "register"},
-    {"inline", "inline"},
+    {"blockzeitlich", "auto"},
+    {"fallunterscheidung", "switch"},
+    {"fall", "case"},
+    {"vorzeichenfrei", "unsigned"},
+    {"vorzeichenbehaftet", "signed"},
+    {"standardfall","default"},
+    {"springezu","goto"},
+    {"größewert","sizeof"},
+    {"unvorhersagbar", "volatile"},
+    {"ausführen","do"},
+    {"gemeinspeicher", "union"},
+    {"wertreihe", "enum"},
+    {"typbenennung", "typedef"},
+    {"schnellspeicher", "register"},
+    {"einfügefunktion", "inline"},
+    
+    
 };
 
 std::unordered_map<std::string, std::string> function_map = {
     {"schreibe", "printf"},
     {"scanner", "scanf"},
-    {"hole", "getchar"} 
+    {"hole", "getchar"},
 };
 
 std::unordered_map<std::string, std::string> func_map = {
