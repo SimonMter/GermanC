@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.1.2";
+const std::string GERMC_VERSION = "1.1.3";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -17,8 +17,8 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"durchlaufe", "for"},
     {"nichtig", "void"},
     {"ursprung", "main"},
-    {"breche", "break"},
-    {"fortsetzen", "continue"},
+    {"unterbrech", "break"},
+    {"weitergehen", "continue"},
     {"fließkommazahl", "float"},
     {"doppelt", "double"},
     {"lang", "long"},
