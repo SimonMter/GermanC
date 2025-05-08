@@ -30,7 +30,7 @@ GermanC ist eine Programmiersprache, die in ihrer Funktionsweise dem klassischen
 ```bash
 git clone https://github.com/SimonMter/GermanC
 cd GermanC
-g++ german_c.cpp -o germanc
+g++ german_c.cpp Translator.cpp -o germanc
 ```
 ### 2. Systemweite Verfügbarkeit einrichten
 ```bash
