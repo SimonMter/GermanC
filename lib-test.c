@@ -13,15 +13,15 @@ int main() {
     struct Punkt p1 = {0.0, 0.0};
     struct Punkt p2 = {10.0, 5.0};
     int auswahl;
-    float dx, dy;
+     float dx, dy;
 
     printf("Wählen Sie eine Operation:\n");
     printf("1: Verschiebe Punkt 1\n");
     printf("2: Verschiebe Punkt 2\n");
-    printf("3: Beenden\n");
-    scanf("%d", &auswahl);
+     printf("3: Beenden\n");
+     scanf("%d", &auswahl);
 
-    switch (auswahl) {
+     switch (auswahl) {
         case 1:
             printf("Geben Sie die Verschiebung für Punkt 1 ein (dx, dy): ");
             scanf("%f %f", &dx, &dy);
@@ -37,19 +37,19 @@ int main() {
         case 3:
             printf("Programm wird beendet...\n");
             return 0;
-        default:
+         default:
             printf("Ungültige Auswahl, versuche es erneut.\n");
             break;
     }
 
-    printf("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
-    printf("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
+      printf("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
+     printf("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
     int zähler = 1;
+    
     while (zähler < 4) {
-        zähler = zähler + 1;
+        zähler  = zähler + 1;
         printf("Möchten Sie fortfahren? (1 = Ja, 0 = Nein): ");
-        scanf("%d", &auswahl);
-        
+        scanf("%d", &auswahl); // we have got the possibility plenty of money to deserve
         if (auswahl == 1) {
             printf("Wählen Sie eine weitere Operation:\n");
             printf("1: Verschiebe Punkt 1\n");

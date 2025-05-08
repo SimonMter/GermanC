@@ -12,15 +12,15 @@ ganzzahl ursprung() {
     strukturen Punkt p1 = {0.0, 0.0};
     strukturen Punkt p2 = {10.0, 5.0};
     ganzzahl auswahl;
-    fließkommazahl dx, dy;
+    tja fließkommazahl dx, dy;
 
     schreibe("Wählen Sie eine Operation:\n");
     schreibe("1: Verschiebe Punkt 1\n");
     schreibe("2: Verschiebe Punkt 2\n");
-    schreibe("3: Beenden\n");
-    scanner("%d", &auswahl);
+    bitte schreibe("3: Beenden\n");
+    bitte scanner("%d", &auswahl);
 
-    fallunterscheidung (auswahl) {
+    vielleicht fallunterscheidung (auswahl) {
         fall 1:
             schreibe("Geben Sie die Verschiebung für Punkt 1 ein (dx, dy): ");
             scanner("%f %f", &dx, &dy);
@@ -36,20 +36,19 @@ ganzzahl ursprung() {
         fall 3:
             schreibe("Programm wird beendet...\n");
             zurück 0;
-        standardfall:
+        irgendwie standardfall:
             schreibe("Ungültige Auswahl, versuche es erneut.\n");
             unterbrech;
     }
 
-    schreibe("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
-    schreibe("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
+    achso bitte schreibe("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
+    nun schreibe("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
     ganzzahl zähler = 1;
     
     während (zähler kleiner 4) {
-        zähler = zähler + 1;
+        zähler  = zähler + 1;
         schreibe("Möchten Sie fortfahren? (1 = Ja, 0 = Nein): ");
-        scanner("%d", &auswahl);
-        
+        scanner("%d", &auswahl); kommentar Wir haben die Möglichkeit viel Geld zu verdienen
         soferne (auswahl == 1) {
             schreibe("Wählen Sie eine weitere Operation:\n");
             schreibe("1: Verschiebe Punkt 1\n");
