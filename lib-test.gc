@@ -44,6 +44,7 @@ ganzzahl ursprung() {
     schreibe("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
     schreibe("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
     ganzzahl zähler = 1;
+    
     während (zähler kleiner 4) {
         zähler = zähler + 1;
         schreibe("Möchten Sie fortfahren? (1 = Ja, 0 = Nein): ");

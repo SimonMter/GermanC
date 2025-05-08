@@ -5,7 +5,7 @@
 #include <regex>
 #include <cstdlib>
 
-const std::string GERMC_VERSION = "1.1.4";
+const std::string GERMC_VERSION = "1.2.0";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -62,7 +62,6 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"schnellspeicher", "register"},
     {"einfügefunktion", "inline"},
     
-    
 };
 
 std::unordered_map<std::string, std::string> function_map = {
@@ -77,10 +76,49 @@ std::unordered_map<std::string, std::string> func_map = {
     {"leer", "void"},
 };
 
+std::vector<std::string> stilwoerter = {
+    "halt",
+    "tja",
+    "nun",
+    "eben",
+    "schon",
+    "irgendwie",
+    "sozusagen",
+    "quasi",
+    "vielleicht",
+    "ja",
+    "also",
+    "naja",
+    "achso",
+    "bitte",
+    "ehrlichgesagt",
+    "kurz",
+    "jetzt",
+    "schließlich",
+    "tatsächlich",
+    "übrigens",
+    "genaugenommen",
+    "eigentlich",
+    "bedauerlicherweise",
+    "sicherlich",
+    "notfalls",
+    "sowieso",
+    "mal ehrlich",
+    "ehm",
+    "hmm"
+};
 
 
 
 
+std::string remove_stilwoerter(const std::string& line) {
+    std::string result = line;
+    for (const auto& word : stilwoerter) {
+        std::regex pattern("\\b" + word + "\\b");
+        result = std::regex_replace(result, pattern, "");
+    }
+    return result;
+}
 std::string translate_function_calls(const std::string& line) {
     std::string translated = line;
     for (const auto& [german_func, c_func] : function_map) {
@@ -107,6 +145,7 @@ std::string translate_arrays(const std::string& line) {
 
 std::string translate_line(const std::string& line){
     std::string translated = line;
+    translated = remove_stilwoerter(translated);
     for(const auto& [german, cword] : keyword_map){
         std::regex pattern("\\b" + german + "\\b");
         translated = std::regex_replace(translated, pattern, cword);
