@@ -6,6 +6,7 @@
 #include <regex>
 #include <cstdlib>
 #include <tuple>
+#include <cctype>
 #include "Translator.h"
 
 const std::string GERMC_VERSION = "1.2.2";
@@ -63,7 +64,7 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"wertreihe", "enum"},
     {"typbenennung", "typedef"},
     {"schnellspeicher", "register"},
-    {"einfügefunktion", "inline"},
+    {"einfügefunktion", "inline"}
     
 };
 
@@ -78,6 +79,7 @@ std::unordered_map<std::string, std::string> func_map = {
     {"zeichen", "char"},
     {"leer", "void"},
 };
+
 
 std::vector<std::string> stilwoerter = {
     "halt",
@@ -111,12 +113,151 @@ std::vector<std::string> stilwoerter = {
     "hmm"
 };
 
+std::unordered_map<std::string, int> units = {
+    {"null", 0}, {"eins", 1}, {"ein", 1}, {"zwei", 2}, {"drei", 3}, {"vier", 4},
+    {"fünf", 5}, {"sechs", 6}, {"sieben", 7}, {"acht", 8}, {"neun", 9}
+};
+
+std::unordered_map<std::string, int> teens = {
+    {"zehn", 10}, {"elf", 11}, {"zwölf", 12}, {"dreizehn", 13}, {"vierzehn", 14},
+    {"fünfzehn", 15}, {"sechzehn", 16}, {"siebzehn", 17}, {"achtzehn", 18}, {"neunzehn", 19}
+};
+
+std::unordered_map<std::string, int> tens = {
+    {"zwanzig", 20}, {"dreißig", 30}, {"vierzig", 40}, {"fünfzig", 50},
+    {"sechzig", 60}, {"siebzig", 70}, {"achtzig", 80}, {"neunzig", 90}
+};
+
+std::unordered_map<std::string, int> magnitudes = {
+    {"hundert", 100},
+    {"tausend", 1000},
+    {"million", 1000000}, {"millionen", 1000000},
+    {"milliarde", 1000000000}, {"milliarden", 1000000000}
+};
+
+int parseGermanNumber(std::string word);
+
+int extractAndRemove(std::string& word, const std::unordered_map<std::string, int>& dict) {
+    for (const auto& pair : dict) {
+        if (word.find(pair.first) == 0) {
+            word = word.substr(pair.first.length());
+            return pair.second;
+        }
+    }
+    return -1;
+}
+
+int parseBlock(std::string& word) {
+    int value = 0;
+
+    std::size_t undPos = word.find("und");
+    if (undPos != std::string::npos && undPos + 3 < word.length()) {
+        std::string unitPart = word.substr(0, undPos);
+        std::string tenPart = word.substr(undPos + 3);
+        int unitsValue = parseGermanNumber(unitPart);
+        int tensValue = parseGermanNumber(tenPart);
+        word = "";
+        return unitsValue + tensValue;
+    }
+
+    int t = extractAndRemove(word, teens);
+    if (t != -1) return t;
+
+    t = extractAndRemove(word, tens);
+    if (t != -1) return t;
+
+    t = extractAndRemove(word, units);
+    if (t != -1) return t;
+
+    return 0;
+}
+
+int parseGermanNumber(std::string word) {
+    std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+    int total = 0;
+    int current = 0;
+
+    for (const auto& pair : magnitudes) {
+        std::size_t pos = word.find(pair.first);
+        if (pos != std::string::npos) {
+            std::string prefix = word.substr(0, pos);
+            std::string suffix = word.substr(pos + pair.first.length());
+            int multiplier = parseGermanNumber(prefix.empty() ? "eins" : prefix);
+            total += multiplier * pair.second;
+            word = suffix;
+            return total + parseGermanNumber(word);
+        }
+    }
+
+    std::size_t pos = word.find("hundert");
+    if (pos != std::string::npos) {
+        std::string prefix = word.substr(0, pos);
+        std::string suffix = word.substr(pos + 7);
+        current += (prefix.empty() ? 1 : parseGermanNumber(prefix)) * 100;
+        current += parseGermanNumber(suffix);
+        return total + current;
+    }
+
+    return total + parseBlock(word);
+}
+
+bool isValidGermanNumberWord(const std::string& word) {
+    try {
+        parseGermanNumber(word);
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+std::string germanNumberWordToString(const std::string& word) {
+    return std::to_string(parseGermanNumber(word));
+}
+
+std::string replaceGermanNumbersInText(const std::string& input) {
+    std::regex wordRegex(R"([a-zA-ZäöüÄÖÜß]+)");
+    std::sregex_iterator it(input.begin(), input.end(), wordRegex);
+    std::sregex_iterator end;
+
+    std::string output;
+    std::size_t lastPos = 0;
+
+    for (; it != end; ++it) {
+        std::smatch match = *it;
+        std::size_t start = match.position();
+        std::size_t length = match.length();
+        std::string word = match.str();
+
+        // Add non-word characters between last and this word
+        output += input.substr(lastPos, start - lastPos);
+
+        // Try to parse number word
+        try {
+            std::string numberStr = germanNumberWordToString(word);
+            if (!numberStr.empty() && std::stoi(numberStr) > 0) {
+                output += numberStr;
+            } else {
+                output += word;
+            }
+        } catch (...) {
+            output += word;
+        }
+
+        lastPos = start + length;
+    }
+
+    // Add remaining non-word characters
+    output += input.substr(lastPos);
+
+    return output;
+}
+
 
 
 std::string remove_stilwoerter(const std::string& line) {
     std::string result = line;
     for (const auto& word : stilwoerter) {
-        std::regex pattern("\\b" + word + "\\b");
+        std::regex pattern("(^|\\s)" + word + "(\\s|$)");
         result = std::regex_replace(result, pattern, "");
     }
     return result;
@@ -157,6 +298,7 @@ std::string translate_line(const std::string& line){
     translated = translate_function_signature(translated);
     translated = translate_arrays(translated);
     
+    translated = replaceGermanNumbersInText(translated);
     translated = Translator::translate_comment(translated);
     return translated;
 }

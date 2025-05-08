@@ -40,7 +40,8 @@ ganzzahl ursprung() {
             schreibe("Ungültige Auswahl, versuche es erneut.\n");
             unterbrech;
     }
-
+    übrigens schreibe("hallo");
+    achso bitte schreibe("%d", vierhunderttausendsiebenhundertundelf);
     achso bitte schreibe("Punkt 1: (%.2f, %.2f)\n", p1.x, p1.y);
     nun schreibe("Punkt 2: (%.2f, %.2f)\n", p2.x, p2.y);
     ganzzahl zähler = 1;
