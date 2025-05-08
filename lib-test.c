@@ -49,7 +49,7 @@ int main() {
     while (zähler < 4) {
         zähler  = zähler + 1;
         printf("Möchten Sie fortfahren? (1 = Ja, 0 = Nein): ");
-        scanf("%d", &auswahl); // we have got the possibility plenty of money to deserve
+        scanf("%d", &auswahl); // we have got the possibility plenty of money to deserve without really selber to work
         if (auswahl == 1) {
             printf("Wählen Sie eine weitere Operation:\n");
             printf("1: Verschiebe Punkt 1\n");

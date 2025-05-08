@@ -48,7 +48,7 @@ ganzzahl ursprung() {
     während (zähler kleiner 4) {
         zähler  = zähler + 1;
         schreibe("Möchten Sie fortfahren? (1 = Ja, 0 = Nein): ");
-        scanner("%d", &auswahl); kommentar Wir haben die Möglichkeit viel Geld zu verdienen
+        scanner("%d", &auswahl); kommentar Wir haben die Möglichkeit viel Geld zu verdienen ohne wirklich selber zu arbeiten
         soferne (auswahl == 1) {
             schreibe("Wählen Sie eine weitere Operation:\n");
             schreibe("1: Verschiebe Punkt 1\n");
