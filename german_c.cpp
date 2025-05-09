@@ -9,7 +9,7 @@
 #include <cctype>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.2.2";
+const std::string GERMC_VERSION = "1.2.3";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -77,7 +77,7 @@ std::unordered_map<std::string, std::string> function_map = {
 std::unordered_map<std::string, std::string> func_map = {
     {"ganzzahl", "int"},
     {"zeichen", "char"},
-    {"leer", "void"},
+    {"nichtig", "void"},
 };
 
 
@@ -304,6 +304,59 @@ std::string translate_line(const std::string& line){
 }
 
 
+std::string escape_regex(const std::string& str) {
+    static const std::string special_chars = R"([.^$|()\\[*+?{}])";
+    
+    std::string escaped_str;
+    for (char c : str) {
+        if (special_chars.find(c) != std::string::npos) {
+            escaped_str += '\\';
+        }
+        escaped_str += c;
+    }
+    return escaped_str;
+}
+
+std::string reverse_translate_function_calls(const std::string& line) {
+    std::string result = line;
+    for (const auto& [german_func, c_func] : function_map) {
+        std::string escaped_c_func = escape_regex(c_func);
+        std::regex pattern("\\b" + escaped_c_func + "\\b");  // Match whole words only
+        result = std::regex_replace(result, pattern, german_func);
+    }
+    return result;
+}
+
+std::string reverse_translate_function_signature(const std::string& line) {
+    std::string result = line;
+    for (const auto& [german_type, c_type] : func_map) {
+        std::string escaped_c_type = escape_regex(c_type);
+        std::regex pattern("\\b" + escaped_c_type + "\\b");
+        result = std::regex_replace(result, pattern, german_type);
+    }
+    return result;
+}
+
+std::string reverse_translate_keywords(const std::string& line) {
+    std::string result = line;
+    for (const auto& [german, cword] : keyword_map) {
+        std::string escaped_cword = escape_regex(cword);
+        std::regex pattern("\\b" + escaped_cword + "\\b");
+        result = std::regex_replace(result, pattern, german);
+    }
+    return result;
+}
+
+
+std::string reverse_translate_line(const std::string& line) {
+    std::string result = line;
+    result = reverse_translate_function_calls(result);
+    result = reverse_translate_function_signature(result);
+    result = reverse_translate_keywords(result);
+    return result;
+}
+
+
 int main(int argc, char* argv[]) {
     if (argc == 2 && std::string(argv[1]) == "--version") {
         std::cout << "germanc Version " << GERMC_VERSION << std::endl;
@@ -373,8 +426,39 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     
+    if (argc == 4 && std::string(argv[3]) == "--reverse" && std::string(argv[1]) == "translate") {
+        std::string input_filename = argv[2];
+        std::ifstream infile(input_filename);
+        if (!infile) {
+            std::cerr << "Fehler: C-Datei konnte nicht geöffnet werden.\n";
+            return 1;
+        }
+    
+        std::string output_filename = input_filename;
+        size_t pos = output_filename.find(".c");
+        if (pos != std::string::npos) {
+            output_filename.replace(pos, 2, ".gc");
+        } else {
+            output_filename += ".gc";
+        }
+    
+        std::ofstream outfile(output_filename);
+        if (!outfile) {
+            std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
+            return 1;
+        }
+    
+        std::string line;
+        while (std::getline(infile, line)) {
+            outfile << reverse_translate_line(line) << "\n";
+        }
+    
+        std::cout << "Rückübersetzung abgeschlossen: " << output_filename << "\n";
+        return 0;
+    }
+    
 
-    if (argc > 3) {
+    if (argc > 10) {
         std::cerr << "Benutzung: germanc <Datei.gc>\n";
         std::cerr << "Oder: germanc --version\n";
         return 1;
