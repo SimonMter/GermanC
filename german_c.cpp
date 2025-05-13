@@ -9,7 +9,7 @@
 #include <cctype>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.2.4";
+const std::string GERMC_VERSION = "1.2.5";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -225,6 +225,30 @@ bool isValidGermanNumberWord(const std::string& word) {
     }
 }
 
+
+
+std::string modifyLineAndCheckSemicolon(std::string codeLine) {
+    size_t pos = codeLine.find("//");
+    if (pos != std::string::npos) {
+        codeLine = codeLine.substr(0, pos);
+    }
+
+    std::regex blockCommentRegex(R"(/\*.*\*/\s*$)");
+    codeLine = std::regex_replace(codeLine, blockCommentRegex, "");
+
+    codeLine.erase(std::find_if(codeLine.rbegin(), codeLine.rend(),
+                                [](char c) { return !std::isspace(c); }).base(),
+                   codeLine.end());
+
+    if (!codeLine.empty() && codeLine.back() == '!') {
+        codeLine.back() = ';';
+    }
+
+    bool endsWithSemicolon = !codeLine.empty() && codeLine.back() == ';';
+
+    return codeLine;
+}
+
 std::string germanNumberWordToString(const std::string& word) {
     return std::to_string(parseGermanNumber(word));
 }
@@ -314,6 +338,7 @@ std::string translate_line(const std::string& line){
     translated = translate_arrays(translated);
     
     translated = replaceGermanNumbersInText(translated);
+    translated = modifyLineAndCheckSemicolon(translated);
     translated = Translator::translate_comment(translated);
     return translated;
 }
