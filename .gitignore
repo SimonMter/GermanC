@@ -5,3 +5,4 @@ lib-test
 lib-test.c
 lib-test.gc
 germanc
+*.gc

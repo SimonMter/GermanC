@@ -229,7 +229,9 @@ bool isValidGermanNumberWord(const std::string& word) {
 
 std::string modifyLineAndCheckSemicolon(std::string codeLine) {
     size_t pos = codeLine.find("//");
+    std::string commentPart = "";
     if (pos != std::string::npos) {
+        commentPart = codeLine.substr(pos);
         codeLine = codeLine.substr(0, pos);
     }
 
@@ -244,9 +246,7 @@ std::string modifyLineAndCheckSemicolon(std::string codeLine) {
         codeLine.back() = ';';
     }
 
-    bool endsWithSemicolon = !codeLine.empty() && codeLine.back() == ';';
-
-    return codeLine;
+    return codeLine + commentPart;
 }
 
 std::string germanNumberWordToString(const std::string& word) {
