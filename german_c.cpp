@@ -9,7 +9,7 @@
 #include <cctype>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.2.3";
+const std::string GERMC_VERSION = "1.2.4";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -46,6 +46,22 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"beinhalte", "include"},
     {"definieren", "define"},
     {"kommentar", "//"},
+    {"übrigens", "//by the way"},
+    {"des weiteren", "//the further"},
+    {"ich muss ihnen mitteilen", "//i must you tell"},
+    {"wohl gemerkt", "//well noticed"},
+    {"am rande", "//at the edge"},
+    {"nebenbei", "//next to it"},
+    {"kleiner hinweis", "//small hint"},
+    {"ach", "//oh yes"},
+    {"bloß so", "//just so"},
+    {"zur info", "//to the info"},
+    {"sei gesagt", "//be said"},
+    {"kurzer einwurf", "//short throw-in"},
+    {"nicht vergessen", "//not forget"},
+    {"als randnotiz", "//as edge note"},
+    {"by the way", "//by the way"},
+    {"wohlgemerkt", "//well noticed (duplicate alias-spelling)"},
     {"kommentar_block", "/* */"},
     {"kommentar_block_anfang", "/*"},
     {"kommentar_block_ende", "*/"},
@@ -101,7 +117,6 @@ std::vector<std::string> stilwoerter = {
     "jetzt",
     "schließlich",
     "tatsächlich",
-    "übrigens",
     "genaugenommen",
     "eigentlich",
     "bedauerlicherweise",
