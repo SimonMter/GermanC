@@ -57,64 +57,143 @@ Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren 
 
 ## 📘 Deutsche C-Schlüsselwort-Tabelle
 
-| 🇩🇪 Deutsches Schlüsselwort    | 🇺🇸 C Äquivalent      | 📖 Bedeutung / Beschreibung                                           |
-|------------------------------|-----------------------|-----------------------------------------------------------------------|
-| `ganzzahl`                   | `int`                 | Ganzzahliger Datentyp                                                 |
-| `bitzeichen`                 | `char`                | Zeichen (bitweises Symbol)                                            |
-| `zurück`                     | `return`              | Rückgabe aus einer Funktion                                           |
-| `soferne`                    | `if`                  | Bedingte Verzweigung                                                  |
-| `andernfalls`                | `else`                | Alternative Verzweigung                                               |
-| `während`                    | `while`               | Wiederholungsschleife (solange Bedingung wahr ist)                    |
-| `durchlaufe`                 | `for`                 | Schleife (wiederholt sich eine festgelegte Anzahl von Malen)          |
-| `nichtig`                    | `void`                | Kein Rückgabewert (leerer Rückgabewert)                               |
-| `ursprung`                   | `main`                | Einstiegspunkt der Hauptfunktion                                      |
-| `unterbrech`                 | `break`               | Verlassen einer Schleife                                              |
-| `weitergehen`                | `continue`            | Überspringen der aktuellen Iteration und Fortsetzen der Schleife      |
-| `fließkommazahl`             | `float`               | Fließkommazahl (einfache Genauigkeit)                                 |
-| `doppelt`                    | `double`              | Fließkommazahl (doppelte Genauigkeit)                                 |
-| `lang`                       | `long`                | Lange Ganzzahl                                                        |
-| `kurz`                       | `short`               | Kurze Ganzzahl                                                        |
-| `gleich`                     | `==`                  | Vergleich auf Gleichheit                                              |
-| `nicht_gleich`               | `!=`                  | Vergleich auf Ungleichheit                                            |
-| `größer`                     | `>`                   | Vergleich auf Größer als                                              |
-| `kleiner`                    | `<`                   | Vergleich auf Kleiner als                                             |
-| `größer_oder_gleich`         | `>=`                  | Vergleich auf Größer oder Gleich                                      |
-| `kleiner_oder_gleich`        | `<=`                  | Vergleich auf Kleiner oder Gleich                                     |
-| `und`                        | `&&`                  | Logisches Und                                                         |
-| `oder`                       | `||`                  | Logisches Oder                                                        |
-| `nicht`                      | `!`                   | Logisches Nicht                                                       |
-| `wahr`                       | `true`                | Wahrheitswert "wahr"                                                  |
-| `falsch`                     | `false`               | Wahrheitswert "falsch"                                                |
-| `null`                       | `NULL`                | Null-Pointer                                                          |
-| `konstant`                   | `const`               | Konstantenbezeichner (unveränderlicher Wert)                          |
-| `extern`                     | `extern`              | Externe Verknüpfung, bezeichnet Variablen/Funktionen in anderen Dateien|
-| `statisch`                   | `static`              | Statische Speicherung, variablen-spezifisch (lokale Lebensdauer)      |
-| `zeichenfolge`               | `char*`               | Zeichenketten (Zeiger auf ein Array von Zeichen)                      |
-| `beinhalte`                  | `#include`            | Präprozessor-Direktive zum Einfügen von Header-Dateien                |
-| `definieren`                 | `#define`             | Präprozessor-Makrodefinition                                          |
-| `kommentar`                  | `//`                  | Einzeilige Kommentar-Markierung                                       |
-| `kommentar_block`            | `/* */`               | Block-Kommentar-Markierung                                            |
-| `kommentar_block_anfang`     | `/*`                  | Beginn eines Block-Kommentars                                         |
-| `kommentar_block_ende`       | `*/`                  | Ende eines Block-Kommentars                                           |
-| `strukturen`                 | `struct`              | Strukturdefinition für benutzerdefinierte Datentypen                  |
-| `blockzeitlich`              | `auto`                | Block-spezifische automatische Speicherung                            |
-| `fallunterscheidung`         | `switch`              | Auswahlstruktur (Verzweigung basierend auf einem Ausdruck)            |
-| `fall`                       | `case`                | Fallzweig innerhalb einer `switch`-Struktur                           |
-| `vorzeichenfrei`             | `unsigned`            | Vorzeichenloser Modifikator                                           |
-| `vorzeichenbehaftet`         | `signed`              | Vorzeichenbehafteter Modifikator                                      |
-| `standardfall`               | `default`             | Standardfall innerhalb einer `switch`-Struktur                        |
-| `springezu`                  | `goto`                | Unbedingter Sprung zu einer anderen Stelle im Programm                |
-| `größewert`                  | `sizeof`              | Bestimmung der Größe eines Datentyps in Bytes                         |
-| `unvorhersagbar`             | `volatile`            | Verhindert Optimierung aufgrund externer Veränderungen                |
-| `ausführen`                  | `do`                  | `do...while` Schleife (wird mindestens einmal ausgeführt)             |
-| `gemeinspeicher`             | `union`               | Gemeinsame Speichernutzung für verschiedene Datentypen                |
-| `wertreihe`                  | `enum`                | Aufzählung von benannten Konstanten                                   |
-| `typbenennung`               | `typedef`             | Definition von Typaliasen                                             |
-| `schnellspeicher`            | `register`            | Hinweis auf schnelle Speicherung von Variablen                        |
-| `einfügefunktion`            | `inline`              | Inline-Ersetzung einer Funktion, um den Funktionsaufruf zu vermeiden  |
-| `schreibe`                   | `printf`              | Ausgabe auf der Konsole                                               |
-| `scanner`                    | `scanf`               | Eingabe von Benutzerdaten über die Konsole                            |
-| `hole`                       | `getchar`             | Liest ein Zeichen aus dem Eingabestrom                                |
+
+
+| **GermanC Keyword**      | **C++ Keyword**                           |
+| ------------------------ | ----------------------------------------- |
+| ganzzahl                 | int                                       |
+| bitzeichen               | char                                      |
+| zurück                   | return                                    |
+| soferne                  | if                                        |
+| andernfalls              | else                                      |
+| während                  | while                                     |
+| durchlaufe               | for                                       |
+| nichtig                  | void                                      |
+| ursprung                 | main                                      |
+| unterbrech               | break                                     |
+| weitergehen              | continue                                  |
+| fließkommazahl           | float                                     |
+| doppelt                  | double                                    |
+| lang                     | long                                      |
+| kurz                     | short                                     |
+| gleich                   | ==                                        |
+| nicht\_gleich            | !=                                        |
+| größer                   | >                                         |
+| kleiner                  | <                                         |
+| größer\_oder\_gleich     | >=                                        |
+| kleiner\_oder\_gleich    | <=                                        |
+| und                      | &&                                        |
+| oder                     |                                           |
+| nicht                    | !                                         |
+| wahr                     | true                                      |
+| falsch                   | false                                     |
+| null                     | NULL                                      |
+| konstant                 | const                                     |
+| extern                   | extern                                    |
+| statisch                 | static                                    |
+| zeichenfolge             | char\*                                    |
+| beinhalte                | include                                   |
+| definieren               | define                                    |
+| kommentar                | //                                        |
+| übrigens                 | //by the way                              |
+| des weiteren             | //the further                             |
+| ich muss ihnen mitteilen | //i must you tell                         |
+| wohl gemerkt             | //well noticed                            |
+| am rande                 | //at the edge                             |
+| nebenbei                 | //next to it                              |
+| kleiner hinweis          | //small hint                              |
+| ach                      | //oh yes                                  |
+| bloß so                  | //just so                                 |
+| zur info                 | //to the info                             |
+| sei gesagt               | //be said                                 |
+| kurzer einwurf           | //short throw-in                          |
+| nicht vergessen          | //not forget                              |
+| als randnotiz            | //as edge note                            |
+| by the way               | //by the way                              |
+| wohlgemerkt              | //well noticed (duplicate alias-spelling) |
+| kommentar\_block         | /\* \*/                                   |
+| kommentar\_block\_anfang | /\*                                       |
+| kommentar\_block\_ende   | \*/                                       |
+| strukturen               | struct                                    |
+| blockzeitlich            | auto                                      |
+| fallunterscheidung       | switch                                    |
+| fall                     | case                                      |
+| vorzeichenfrei           | unsigned                                  |
+| vorzeichenbehaftet       | signed                                    |
+| standardfall             | default                                   |
+| springezu                | goto                                      |
+| größewert                | sizeof                                    |
+| unvorhersagbar           | volatile                                  |
+| ausführen                | do                                        |
+| gemeinspeicher           | union                                     |
+| wertreihe                | enum                                      |
+| typbenennung             | typedef                                   |
+| schnellspeicher          | register                                  |
+| einfügefunktion          | inline                                    |
+| schreibe             | printf           |
+| scanner              | scanf            |
+| hole                 | getchar          |
+
+### Style Keywörter:
+    halt
+
+    tja
+
+    nun
+
+    eben
+
+    schon
+
+    irgendwie
+
+    sozusagen
+
+    quasi
+
+    vielleicht
+
+    ja
+
+    also
+
+    naja
+
+    achso
+
+    bitte
+
+    ehrlichgesagt
+
+    kurz
+
+    jetzt
+
+    schließlich
+
+    tatsächlich
+
+    genaugenommen
+
+    eigentlich
+
+    bedauerlicherweise
+
+    sicherlich
+
+    notfalls
+
+    sowieso
+
+    mal ehrlich
+
+    ehm
+
+    hmm
+
+
+
+
 
 ---
 
@@ -160,7 +239,7 @@ gcc zur Kompilierung des generierten C-Codes
 Der GermanC-Übersetzer lässt sich einmalig kompilieren und als ausführbare Datei weitergeben. Eine lokale C++-Umgebung ist für Endnutzer dann nicht länger erforderlich.
 Versionen & Update
 
-**Aktuelle Version: 1.1.2**
+**Aktuelle Version: 1.2.5**
 
 Um sicherzustellen, dass Sie die neueste Version von GermanC haben, können Sie das Repository regelmäßig aktualisieren. Benutzen Sie dafür den folgenden Befehl:
 ```bash
