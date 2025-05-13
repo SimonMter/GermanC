@@ -239,7 +239,7 @@ gcc zur Kompilierung des generierten C-Codes
 Der GermanC-Übersetzer lässt sich einmalig kompilieren und als ausführbare Datei weitergeben. Eine lokale C++-Umgebung ist für Endnutzer dann nicht länger erforderlich.
 Versionen & Update
 
-**Aktuelle Version: 1.2.4**
+**Aktuelle Version: 1.2.5**
 
 Um sicherzustellen, dass Sie die neueste Version von GermanC haben, können Sie das Repository regelmäßig aktualisieren. Benutzen Sie dafür den folgenden Befehl:
 ```bash
