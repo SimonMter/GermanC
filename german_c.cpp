@@ -7,19 +7,25 @@
 #include <cstdlib>
 #include <tuple>
 #include <cctype>
+#include <string>
+#include <ctime>
+#include <random>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.2.5";
+const std::string GERMC_VERSION = "1.2.6";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
     {"bitzeichen", "char"},
     {"zurück", "return"},
-    {"soferne", "if"},
+    {"sofern", "if"},
     {"andernfalls", "else"},
     {"während", "while"},
     {"durchlaufe", "for"},
     {"nichtig", "void"},
+    {"nichtige", "void"},
+    {"nichtiger", "void"},
+    {"nichtiges", "void"},
     {"ursprung", "main"},
     {"unterbrech", "break"},
     {"weitergehen", "continue"},
@@ -36,12 +42,27 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"und", "&&"},                 
     {"oder", "||"},                 
     {"nicht", "!"},
-    {"wahr", "true"},
-    {"falsch", "false"},
+    {"wahr", "1"},
+    {"wahre", "1"},
+    {"wahrer", "1"},
+    {"wahres", "1"},
+    {"falsch", "0"},
+    {"falsche", "0"},
+    {"falscher", "0"},
+    {"falsches", "0"},
     {"null", "NULL"},
     {"konstant", "const"},
+    {"konstante", "const"},
+    {"konstanter", "const"},
+    {"konstantes", "const"},
     {"extern", "extern"},
+    {"externe", "extern"},
+    {"externer", "extern"},
+    {"externes", "extern"},
     {"statisch", "static"},
+    {"statische", "static"},
+    {"statischer", "static"},
+    {"statisches", "static"},
     {"zeichenfolge", "char*"},
     {"beinhalte", "include"},
     {"definieren", "define"},
@@ -67,14 +88,26 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"kommentar_block_ende", "*/"},
     {"strukturen", "struct"},
     {"blockzeitlich", "auto"},
+    {"blockzeitliche", "auto"},
+    {"blockzeitlicher", "auto"},
+    {"blockzeitliches", "auto"},
     {"fallunterscheidung", "switch"},
     {"fall", "case"},
     {"vorzeichenfrei", "unsigned"},
+    {"vorzeichenfreie", "unsigned"},
+    {"vorzeichenfreier", "unsigned"},
+    {"vorzeichenfreies", "unsigned"},
     {"vorzeichenbehaftet", "signed"},
+    {"vorzeichenbehaftete", "signed"},
+    {"vorzeichenbehafteter", "signed"},
+    {"vorzeichenbehaftetes", "signed"},
     {"standardfall","default"},
     {"springezu","goto"},
     {"größewert","sizeof"},
     {"unvorhersagbar", "volatile"},
+    {"unvorhersagbare", "volatile"},
+    {"unvorhersagbarer", "volatile"},
+    {"unvorhersagbares", "volatile"},
     {"ausführen","do"},
     {"gemeinspeicher", "union"},
     {"wertreihe", "enum"},
@@ -149,6 +182,27 @@ std::unordered_map<std::string, int> magnitudes = {
     {"million", 1000000}, {"millionen", 1000000},
     {"milliarde", 1000000000}, {"milliarden", 1000000000}
 };
+
+
+std::string replace_eventuell_with_random(std::string sentence) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 1); 
+
+    std::regex evRegex(R"(eventuell(?:e|es|er)?)");
+    std::string result = sentence;
+    std::smatch match;
+
+    while (std::regex_search(result, match, evRegex)) {
+        std::string randomValue = std::to_string(dis(gen)); 
+
+        result.replace(match.position(), match.length(), randomValue);
+    }
+
+    return result;
+}
+
+
 
 int parseGermanNumber(std::string word);
 
@@ -253,6 +307,7 @@ std::string germanNumberWordToString(const std::string& word) {
     return std::to_string(parseGermanNumber(word));
 }
 
+
 std::string replaceGermanNumbersInText(const std::string& input) {
     std::regex wordRegex(R"([a-zA-ZäöüÄÖÜß]+)");
     std::sregex_iterator it(input.begin(), input.end(), wordRegex);
@@ -332,6 +387,7 @@ std::string translate_line(const std::string& line){
         std::regex pattern("\\b" + german + "\\b");
         translated = std::regex_replace(translated, pattern, cword);
     }
+    translated = replace_eventuell_with_random(translated);
 
     translated = translate_function_calls(translated);
     translated = translate_function_signature(translated);
