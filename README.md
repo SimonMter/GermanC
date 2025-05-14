@@ -64,11 +64,11 @@ Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren 
 | ganzzahl                 | int                                       |
 | bitzeichen               | char                                      |
 | zurück                   | return                                    |
-| soferne                  | if                                        |
+| sofern                  | if                                        |
 | andernfalls              | else                                      |
 | während                  | while                                     |
 | durchlaufe               | for                                       |
-| nichtig                  | void                                      |
+| nichtig/-e/-er/-es                  | void                                      |
 | ursprung                 | main                                      |
 | unterbrech               | break                                     |
 | weitergehen              | continue                                  |
@@ -84,13 +84,14 @@ Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren 
 | kleiner\_oder\_gleich    | <=                                        |
 | und                      | &&                                        |
 | oder                     |                                           |
-| nicht                    | !                                         |
-| wahr                     | true                                      |
-| falsch                   | false                                     |
+| nicht/-e/-er/-es                    | !                                         |
+| wahr/-e/-er/-es                     | true                                      |
+| falsch/-e/-er/-es                   | false                                     |
+| eventuell/-e                | Erst durch Beobachtung entscheidet sich das Universum zwischen wahr und falsch|
 | null                     | NULL                                      |
-| konstant                 | const                                     |
-| extern                   | extern                                    |
-| statisch                 | static                                    |
+| konstant/-e/-er/-es                 | const                                     |
+| extern/-e/-er/-es                   | extern                                    |
+| statisch/-e/-er/-es                 | static                                    |
 | zeichenfolge             | char\*                                    |
 | beinhalte                | include                                   |
 | definieren               | define                                    |
@@ -115,15 +116,15 @@ Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren 
 | kommentar\_block\_anfang | /\*                                       |
 | kommentar\_block\_ende   | \*/                                       |
 | strukturen               | struct                                    |
-| blockzeitlich            | auto                                      |
+| blockzeitlich/-e/-er/-es            | auto                                      |
 | fallunterscheidung       | switch                                    |
 | fall                     | case                                      |
-| vorzeichenfrei           | unsigned                                  |
-| vorzeichenbehaftet       | signed                                    |
+| vorzeichenfrei/-e/-er/-es           | unsigned                                  |
+| vorzeichenbehaftet/-e/-er/-es       | signed                                    |
 | standardfall             | default                                   |
 | springezu                | goto                                      |
 | größewert                | sizeof                                    |
-| unvorhersagbar           | volatile                                  |
+| unvorhersagbar/-e/-er/-es           | volatile                                  |
 | ausführen                | do                                        |
 | gemeinspeicher           | union                                     |
 | wertreihe                | enum                                      |
