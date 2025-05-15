@@ -288,10 +288,8 @@ GermanC ist nun Realität – und sie könnte Ihnen gefährlich werden.
 
 Bei Rückfragen oder etwaigen Komplikationen zögern Sie bitte nicht, sich mitzuteilen.
 
-Mehr Informationen unter: https://github.com/SimonMter/GermanC
 
-
-̀̀̀---
+---
 
 ## License
 
