@@ -206,7 +206,7 @@ Beispielcode (beispiel.gc):
 
 ganzzahl haupt() {
     ganzzahl x = 10;
-    wenn (x > 5) {
+    sofern (x > 5) {
         zurück x;
     } sonst {
         zurück 0;
