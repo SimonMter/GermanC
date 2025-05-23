@@ -12,7 +12,7 @@
 #include <random>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.2.6";
+const std::string GERMC_VERSION = "1.3";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -34,6 +34,7 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"lang", "long"},
     {"kurz", "short"},
     {"gleich", "=="},
+    {"identisch zu", "=="},
     {"nicht_gleich", "!="},
     {"größer", ">"},
     {"kleiner", "<"},
@@ -113,7 +114,12 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"wertreihe", "enum"},
     {"typbenennung", "typedef"},
     {"schnellspeicher", "register"},
-    {"einfügefunktion", "inline"}
+    {"einfügefunktion", "inline"},
+    {"plus", "+"},
+    {"minus", "-"},
+    {"mal", "*"},
+    {"geteilt durch", "/"},
+    {"modulo", "%"},
     
 };
 
