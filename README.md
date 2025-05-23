@@ -134,6 +134,11 @@ Dieses Dokument enthält eine Liste von deutschen Schlüsselwörtern, die ihren 
 | schreibe             | printf           |
 | scanner              | scanf            |
 | hole                 | getchar          |
+| minus                 |  -          |
+| plus                  |  +          |
+| mal                 |  *          |
+| geteilt durch                 |  /          |
+| modulo                 |  %          |
 
 ### Style Keywörter:
     halt
