@@ -208,7 +208,7 @@ ganzzahl haupt() {
     ganzzahl x = 10;
     sofern (x > 5) {
         zurück x;
-    } sonst {
+    } andernfalls {
         zurück 0;
     }
 }
