@@ -120,13 +120,25 @@ std::unordered_map<std::string, std::string> keyword_map = {
     {"mal", "*"},
     {"geteilt durch", "/"},
     {"modulo", "%"},
-    
+    {"zusammenhängenden arbeitsspeicherbereich nullinitialisiert zuweisen", "calloc"},
+    {"Speicher neu zuweisen", "realloc"},
+    {"arbeitsspeicherbereich zuweisen", "malloc"},
+    {"befreihen", "free"},
+    {"speicher auf dem stapel reservieren", "alloca"},
+    {"pfehler", "perror"},
 };
 
 std::unordered_map<std::string, std::string> function_map = {
     {"schreibe", "printf"},
     {"scanner", "scanf"},
     {"hole", "getchar"},
+    {"arbeitsspeicherbereich zuweisen", "alloc"},
+    {"zusammenhängenden arbeitsspeicherbereich nullinitialisiert zuweisen", "calloc"},
+    {"Speicher neu zuweisen", "realloc"},
+    {"arbeitsspeicherbereich zuweisen", "malloc"},
+    {"befreihen", "free"},
+    {"speicher auf dem stapel reservieren", "alloca"},
+    {"pfehler", "perror"},
 };
 
 std::unordered_map<std::string, std::string> func_map = {
