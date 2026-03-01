@@ -1,0 +1,11 @@
+ganzzahl beispiel(ganzzahl x) {
+    sofern (x größer 5) {
+        zurück x;
+    } andernfalls {
+        zurück 0;
+    }
+}
+
+ganzzahl ursprung(){
+    schreibe("%d\n", beispiel(15));
+}
