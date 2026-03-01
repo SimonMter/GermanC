@@ -209,7 +209,7 @@ Beispielcode (beispiel.gc):
 ```gc
 #!/usr/bin/env germanc
 
-ganzzahl haupt() {
+ganzzahl ursprung() {
     ganzzahl x = 10;
     sofern (x > 5) {
         zurück x;
