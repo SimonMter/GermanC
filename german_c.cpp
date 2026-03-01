@@ -12,7 +12,7 @@
 #include <random>
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.3";
+const std::string GERMC_VERSION = "1.4";
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
