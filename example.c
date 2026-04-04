@@ -6,7 +6,6 @@ int beispiel(int x) {
         return 0;
     }
 }
-
 int main(){
-    printf("%d\n", beispiel(15));
+   printf("%d\n", beispiel(15));
 }

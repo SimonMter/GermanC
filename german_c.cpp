@@ -10,9 +10,14 @@
 #include <string>
 #include <ctime>
 #include <random>
+#include <unordered_set>
+#include <algorithm>
+
 #include "Translator.h"
 
-const std::string GERMC_VERSION = "1.4";
+const std::string GERMC_VERSION = "1.5";
+const std::string GERMC_VERSION_CODE = "Bitte(rer) Nachgeschmack";
+
 
 std::unordered_map<std::string, std::string> keyword_map = {
     {"ganzzahl", "int"},
@@ -161,8 +166,8 @@ std::vector<std::string> stilwoerter = {
     "ja",
     "also",
     "naja",
-    "achso",
     "bitte",
+    "achso",
     "ehrlichgesagt",
     "kurz",
     "jetzt",
@@ -470,10 +475,86 @@ std::string reverse_translate_line(const std::string& line) {
     return result;
 }
 
+double getPolitenessScore(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) return false;
+
+    std::string line, word;
+
+    double politenessScore = 0.0;
+    double sincerity = 1.0;
+    double rudeness = 0.0;
+    double politenessSaturation = 0.0;
+
+    int linesSincePolite = 0;
+
+    std::unordered_set<std::string> politeWords = {
+        "bitte", "danke", "dankeschön", "bitte!", "pls"
+    };
+
+    std::unordered_map<std::string, double> rudeWords = {
+        {"löschen", 4.0},
+        {"kill", 5.0},
+        {"force", 4.5},
+        {"shutdown", 6.0},
+        {"nein", 1.0}
+    };
+    long totalWords = 0;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        bool foundPolite = false;
+
+        while (iss >> word) {
+	    totalWords++;
+	    std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+            if (politeWords.count(word)) {
+                foundPolite = true;
+            }
+
+            if (rudeWords.count(word)) {
+                rudeness += rudeWords[word];
+            }
+        }
+
+        if (foundPolite) {
+            double gain = 1.5 + (linesSincePolite * 0.3);
+
+            gain *= (1.0 / (1.0 + politenessSaturation));
+
+            politenessScore += gain * sincerity;
+
+            if (linesSincePolite <= 1) {
+                sincerity *= 0.67;
+            } else {
+                sincerity = std::min(1.8, sincerity + 0.167);
+            }
+
+            politenessSaturation += 0.35;
+
+            linesSincePolite = 0;
+        } else {
+            linesSincePolite++;
+
+            politenessSaturation *= 0.95;
+        }
+    }
+
+    file.close();
+
+    double finalScore = politenessScore - rudeness;
+    finalScore /= totalWords;
+    return finalScore*100;
+}
+bool isPoliteEnough(const std::string& filename) {
+    return getPolitenessScore(filename) >= 15.0;
+}
+
 
 int main(int argc, char* argv[]) {
     if (argc == 2 && std::string(argv[1]) == "--version") {
-        std::cout << "germanc Version " << GERMC_VERSION << std::endl;
+        std::cout << "germanc Version " << GERMC_VERSION << " (" << GERMC_VERSION_CODE << ") " << std::endl;
         return 0;
     }
     
@@ -517,7 +598,7 @@ int main(int argc, char* argv[]) {
         }
     }
     if (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "Anleitung-zur-rechten-Handhabung")) {
-        std::cout << "GERMANC " << GERMC_VERSION << " – der Übersetzer der deutschen C-Weisheit\n\n"
+        std::cout << "GERMANC " << GERMC_VERSION << " (" << GERMC_VERSION_CODE << ") " << " – der Übersetzer der deutschen C-Weisheit\n\n"
                   << "Benutzung:\n"
                   << "  germanc <Datei.gc>                      Übersetzt und kompiliert die Datei\n"
                   << "  germanc translate <Datei.gc>           Nur übersetzen (kein Kompilieren)\n"
@@ -526,7 +607,7 @@ int main(int argc, char* argv[]) {
                   << "\n"
                   << "Verfügbare Befehle (auch auf Deutsch!):\n"
                   << "  update | aktualisiere-die-Weisheit     Lade und installiere neueste Version\n"
-                  << "  globalize | verbreite-den-Übersetzer-...   Installiere systemweit\n"
+                  << "  globalize | verbreite-den-Übersetzer-weit-und-breit-im-Reich-der-Binärmagie   Installiere systemweit\n"
                   << "     --delete                            Entfernt lokale Kopie nach Installation\n"
                   << "  features | Kunstfertigkeiten-des-Werkes Zeigt unterstützte Sprachmerkmale\n"
                   << "  --version                              Zeigt die aktuelle Version\n"
@@ -540,6 +621,9 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     
+    if (argc == 3 && std::string(argv[2]) == "--score") {
+	std::cout << "Höflichkeitsscore:" << getPolitenessScore(argv[1]) <<"Pkt.\n";
+    }
     if (argc == 4 && std::string(argv[3]) == "--reverse" && std::string(argv[1]) == "translate") {
         std::string input_filename = argv[2];
         std::ifstream infile(input_filename);
@@ -590,19 +674,25 @@ int main(int argc, char* argv[]) {
 
         std::string input_filename = argv[1];
         std::string output_filename = input_filename;
-        size_t pos = output_filename.find(".gc");
+        
+
+	if(!isPoliteEnough(input_filename)){
+	    std::cerr << "Fehler beim Übersetzten der Datei: Entwickler unhöflich\n";
+	    return 1;
+	}
+
+	size_t pos = output_filename.find(".gc");
         if(pos != std::string::npos){
             output_filename.replace(pos, 3, ".c");
         }else{
             output_filename += ".c";
         }
-
+	
         std::ofstream outfile(output_filename);
         if(!outfile){
             std::cerr << "Fehler beim Schreiben der Ausgabedatei.\n";
             return 1;
         }
-
         std::string line;
         bool is_shebang = true;
         outfile << "#include <stdio.h>\n";
@@ -685,7 +775,13 @@ int main(int argc, char* argv[]) {
             std::string input_filename = argv[2];
             std::string output_filename = input_filename;
             size_t pos = output_filename.find(".gc");
-            if(pos != std::string::npos){
+            
+	    if(!isPoliteEnough(input_filename)){
+	        std::cerr << "Fehler beim Übersetzten der Datei: Entwickler unhöflich\n";
+                return 1;
+	    }
+
+	    if(pos != std::string::npos){
                 output_filename.replace(pos, 3, ".c");
             }else{
                 output_filename += ".c";
